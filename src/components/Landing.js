@@ -1,11 +1,12 @@
 import React from 'react';
 
-const LessonsList = (props) => {
+const Landing = (propr) => {
+
     return(
         <div className="page-container">
-            <h2>Lessons</h2>
+            <h2>Landing</h2>
         </div>
     )
 }
 
-export default LessonsList;
+export default Landing;
