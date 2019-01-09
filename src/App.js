@@ -8,7 +8,7 @@ import { HttpLink } from 'apollo-link-http'; // included with apollo boot
 import {ApolloProvider} from 'react-apollo';
 
 // REACT ROUTER
-import {BrowserRouter, Route, Link} from "react-router-dom";
+import {BrowserRouter, Route} from "react-router-dom";
 
 // STATE
 import defaultState from './defaultState'
@@ -34,7 +34,25 @@ class App extends Component {
 
     this.state = defaultState;
 
+    this.fetchLessons = this.fetchLessons.bind(this);
+    
+    this.stateMethods = {}
+    for(let item in this){
+      if(typeof this[item] === 'function' && item !== 'forceUpdate' && item !== 'setState'){
+        this.stateMethods[item] = this[item]
+      } 
+    }
+
   }
+
+
+  fetchLessons(lessons){
+    this.setState({
+      lessons
+    })
+  }
+
+
   render() {
     return (
       <ApolloProvider client={client} >
@@ -44,7 +62,10 @@ class App extends Component {
           <Banner title={this.state.pageTitle}/>
           <Navigation />
           <Route path="/" exact component={Landing} />
-          <Route path="/lessons" exact component={LessonsList} />
+          <Route path="/lessons" exact 
+              render={props => <LessonsList {...props} state={this.state} stateMethods={this.stateMethods} />}
+              // {...this.props} state={this.state} stateMethods={this.stateMethods} component={LessonsList} 
+          />
           <Route path="/instructors/login" exact component={InstructorLogin} />
         </div>
         </BrowserRouter>
