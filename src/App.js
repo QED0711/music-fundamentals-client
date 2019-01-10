@@ -36,6 +36,7 @@ class App extends Component {
 
     // this.fetchLessons = this.fetchLessons.bind(this);
     this.handleLoginChange = this.handleLoginChange.bind(this);
+    this.loginUser = this.loginUser.bind(this);
     
     this.stateMethods = {}
     for(let item in this){
@@ -57,7 +58,20 @@ class App extends Component {
     })
   }
 
-
+  loginUser(user){
+    if(user && user.name){
+      this.setState({
+        currentUser: {
+          signedIn: true,
+          email: user.email,
+          id: user.id,
+          name: user.name,
+          authorization: user.authorization
+        }
+      })
+      
+    }
+  }
 
 
 

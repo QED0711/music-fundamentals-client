@@ -11,18 +11,18 @@ const GET_LESSONS = gql`
     }
 `
 
-const GET_INSTRUCTOR_BY_EMAIL = gql`
-    query($email: String!){
-        instructorByEmail(email: $email){
+const GET_INSTRUCTOR_BY_CREDENTIALS = gql`
+    query($email: String!, $password: String!){
+        instructorByEmail(email: $email, password: $password){
             id
             email
             name
-            password
+            authorization
         }
     }
 `
 
 export {
     GET_LESSONS,
-    GET_INSTRUCTOR_BY_EMAIL
+    GET_INSTRUCTOR_BY_CREDENTIALS
 };
