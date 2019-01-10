@@ -34,7 +34,8 @@ class App extends Component {
 
     this.state = defaultState;
 
-    this.fetchLessons = this.fetchLessons.bind(this);
+    // this.fetchLessons = this.fetchLessons.bind(this);
+    this.handleLoginChange = this.handleLoginChange.bind(this);
     
     this.stateMethods = {}
     for(let item in this){
@@ -45,12 +46,19 @@ class App extends Component {
 
   }
 
-
-  fetchLessons(lessons){
+  handleLoginChange(){
+    let userEmail = document.getElementById("email-input").value
+    let userPassword = document.getElementById("password-input").value
     this.setState({
-      lessons
+      userLogin: {
+        email: userEmail,
+        password: userPassword
+      }
     })
   }
+
+
+
 
 
   render() {
@@ -64,9 +72,10 @@ class App extends Component {
           <Route path="/" exact component={Landing} />
           <Route path="/lessons" exact 
               render={props => <LessonsList {...props} state={this.state} stateMethods={this.stateMethods} />}
-              // {...this.props} state={this.state} stateMethods={this.stateMethods} component={LessonsList} 
           />
-          <Route path="/instructors/login" exact component={InstructorLogin} />
+          <Route path="/instructors/login" exact 
+              render={props => <InstructorLogin {...props} state={this.state} stateMethods={this.stateMethods}/>}
+          />
         </div>
         </BrowserRouter>
       </ApolloProvider>

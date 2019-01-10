@@ -11,6 +11,18 @@ const GET_LESSONS = gql`
     }
 `
 
+const GET_INSTRUCTOR_BY_EMAIL = gql`
+    query($email: String!){
+        instructorByEmail(email: $email){
+            id
+            email
+            name
+            password
+        }
+    }
+`
+
 export {
-    GET_LESSONS
+    GET_LESSONS,
+    GET_INSTRUCTOR_BY_EMAIL
 };
