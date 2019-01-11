@@ -5,6 +5,7 @@ import {Query} from 'react-apollo';
 import {GET_INSTRUCTOR_LESSONS} from '../../queries/queries';
 
 import LessonCard from '../LessonCard';
+import redirectToCurrentLesson from '../../js/redirectToCurrentLesson';
 
 const InstructorLessons = (props) => {
     const currentUser = props.state.currentUser
@@ -24,6 +25,7 @@ const InstructorLessons = (props) => {
                 ({data, loading}) => {
                     if(loading) return <h2>Loading...</h2>
                     console.log(data.instructor.lessons)
+                    if(props.state.currentLesson.id) return redirectToCurrentLesson(props.state.currentLesson)
                     return(
                         <div className="page-body">
                             <h2>Your Lessons</h2>

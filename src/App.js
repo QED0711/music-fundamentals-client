@@ -19,8 +19,10 @@ import Navigation from './components/Navigation';
 import Landing from './components/Landing';
 import LessonsList from './components/LessonsList';
 
-import InstructorLogin from './components//InstructorPortal/InstructorLogin';
-import InstructorLessons from './components//InstructorPortal/InstructorLessons';
+import InstructorLogin from './components/InstructorPortal/InstructorLogin';
+import InstructorLessons from './components/InstructorPortal/InstructorLessons';
+
+import LessonContainer from './components/LessonViews/LessonContainer';
 
 // Apollo Client Setup
 const client = new ApolloClient({
@@ -40,6 +42,7 @@ class App extends Component {
     this.handleLoginChange = this.handleLoginChange.bind(this);
     this.loginUser = this.loginUser.bind(this);
     this.setCurrentLesson = this.setCurrentLesson.bind(this);
+    this.setCurrentLessonNull = this.setCurrentLessonNull.bind(this);
     
     this.stateMethods = {}
     for(let item in this){
@@ -82,6 +85,18 @@ class App extends Component {
     })
   }
 
+  setCurrentLessonNull(){
+    this.setState({
+      currentLesson: {
+        id: null,
+        instructorId: null,
+        title: null,
+        description: null,
+        tags: null,
+      } 
+    })
+  }
+
 
 
   render() {
@@ -92,22 +107,27 @@ class App extends Component {
         <div className="App">
 
           <Banner title={this.state.pageTitle}/>
-          <Navigation />
+          <Navigation stateMethods={this.stateMethods}/>
           
           {/* ===== ROUTES ===== */}
 
           <Route path="/" exact component={Landing} />
           <Route path="/lessons" exact 
               render={props => <LessonsList {...props} state={this.state} stateMethods={this.stateMethods} />}
-          />
+            />
           <Route path="/instructors/login" exact 
               render={props => <InstructorLogin {...props} state={this.state} stateMethods={this.stateMethods}/>}
-          />
+            />
           
           <Route path="/instructors/lessons" exact 
               render={props => <InstructorLessons {...props} state={this.state} stateMethods={this.stateMethods}/>}
-          />
+            />
 
+            {/* ===== ROUTES ===== */}
+
+          <Route path="/lessons/:id" 
+            render={props => <LessonContainer  {...props} state={this.state} stateMethods={this.stateMethods}/>}
+          />
 
         </div>
         </BrowserRouter>

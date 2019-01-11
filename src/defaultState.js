@@ -20,10 +20,10 @@ let defaultState = {
 
     currentLesson: {
         id: null,
+        instructorId: null,
         title: null,
         description: null,
         tags: null,
-        instructorId: null
     }
     
 }
