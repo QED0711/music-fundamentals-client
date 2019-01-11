@@ -18,7 +18,9 @@ import Banner from './components/Banner';
 import Navigation from './components/Navigation';
 import Landing from './components/Landing';
 import LessonsList from './components/LessonsList';
-import InstructorLogin from './components/InstructorLogin';
+
+import InstructorLogin from './components//InstructorPortal/InstructorLogin';
+import InstructorLessons from './components//InstructorPortal/InstructorLessons';
 
 // Apollo Client Setup
 const client = new ApolloClient({
@@ -83,6 +85,9 @@ class App extends Component {
 
           <Banner title={this.state.pageTitle}/>
           <Navigation />
+          
+          {/* ===== ROUTES ===== */}
+
           <Route path="/" exact component={Landing} />
           <Route path="/lessons" exact 
               render={props => <LessonsList {...props} state={this.state} stateMethods={this.stateMethods} />}
@@ -90,6 +95,12 @@ class App extends Component {
           <Route path="/instructors/login" exact 
               render={props => <InstructorLogin {...props} state={this.state} stateMethods={this.stateMethods}/>}
           />
+          
+          <Route path="/instructors/lessons" exact 
+              render={props => <InstructorLessons {...props} state={this.state} stateMethods={this.stateMethods}/>}
+          />
+
+
         </div>
         </BrowserRouter>
       </ApolloProvider>

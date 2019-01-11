@@ -1,5 +1,5 @@
 import React from 'react';
-import {graphql, Query} from 'react-apollo';
+import {Query} from 'react-apollo';
 
 
 // QUERIES

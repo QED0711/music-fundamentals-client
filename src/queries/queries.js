@@ -22,7 +22,21 @@ const GET_INSTRUCTOR_BY_CREDENTIALS = gql`
     }
 `
 
+const GET_INSTRUCTOR_LESSONS = gql`
+    query($id: ID!){
+        instructor(id: $id){
+            lessons{
+                id
+                title
+                tags
+                description
+            }
+        }
+    }
+`
+
 export {
     GET_LESSONS,
-    GET_INSTRUCTOR_BY_CREDENTIALS
+    GET_INSTRUCTOR_BY_CREDENTIALS,
+    GET_INSTRUCTOR_LESSONS,
 };

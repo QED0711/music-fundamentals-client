@@ -1,8 +1,8 @@
 import React from 'react';
-import {Redirect} from 'react-router-dom'
+import {Redirect, Link} from 'react-router-dom'
 import {Query} from 'react-apollo'
 
-import {GET_INSTRUCTOR_BY_CREDENTIALS} from '../queries/queries';
+import {GET_INSTRUCTOR_BY_CREDENTIALS} from '../../queries/queries';
 
 const InstructorLogin = (props) => {
     const userLogin = props.state.userLogin
@@ -10,7 +10,7 @@ const InstructorLogin = (props) => {
 
     if(props.state.currentUser.signedIn){
         return(
-            <Redirect to="/" />
+            <Redirect to="/instructors/lessons" />
         )
     }
 
@@ -46,6 +46,8 @@ const InstructorLogin = (props) => {
                             <input id="password-input" type="password"/><br/>
                             <input type="submit" />
                         </form>
+
+                        <p>Don't have an instructor account? See <Link to="/instructor/request-token">here</Link> about how to request instructor access</p>
                         </div>
                     )
 
