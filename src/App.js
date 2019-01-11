@@ -39,6 +39,7 @@ class App extends Component {
     // this.fetchLessons = this.fetchLessons.bind(this);
     this.handleLoginChange = this.handleLoginChange.bind(this);
     this.loginUser = this.loginUser.bind(this);
+    this.setCurrentLesson = this.setCurrentLesson.bind(this);
     
     this.stateMethods = {}
     for(let item in this){
@@ -75,9 +76,16 @@ class App extends Component {
     }
   }
 
+  setCurrentLesson(currentLesson){
+    this.setState({
+      currentLesson
+    })
+  }
+
 
 
   render() {
+    console.log(this.state)
     return (
       <ApolloProvider client={client} >
       <BrowserRouter>

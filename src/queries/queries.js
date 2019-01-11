@@ -3,10 +3,12 @@ import gql from "graphql-tag";
 const GET_LESSONS = gql`
     {
         lessons{
+            type
             title
             description
             tags
             id
+            instructorId
         }
     }
 `
@@ -27,6 +29,7 @@ const GET_INSTRUCTOR_LESSONS = gql`
         instructor(id: $id){
             lessons{
                 id
+                type
                 title
                 tags
                 description

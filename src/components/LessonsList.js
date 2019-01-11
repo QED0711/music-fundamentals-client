@@ -12,7 +12,7 @@ const LessonsList = (props) => {
 
     function renderLessonCards(lessons){
         return lessons.map(lesson => {
-            return <LessonCard lesson={lesson} key={lesson.id}/>
+            return <LessonCard lesson={lesson} key={lesson.id} stateMethods={props.stateMethods}/>
         })
     }
 

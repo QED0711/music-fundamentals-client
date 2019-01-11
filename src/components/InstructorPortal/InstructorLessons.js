@@ -29,7 +29,7 @@ const InstructorLessons = (props) => {
                             <h2>Your Lessons</h2>
                             {
                                 data.instructor.lessons.map(lesson => {
-                                    return <LessonCard key={lesson.id} lesson={lesson} />
+                                    return <LessonCard key={lesson.id} lesson={lesson} stateMethods={props.stateMethods} />
                                 })
                             }
 

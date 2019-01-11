@@ -16,6 +16,14 @@ let defaultState = {
     userLogin: {
         email: "",
         password: ""
+    },
+
+    currentLesson: {
+        id: null,
+        title: null,
+        description: null,
+        tags: null,
+        instructorId: null
     }
     
 }
