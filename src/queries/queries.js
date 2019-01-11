@@ -38,8 +38,21 @@ const GET_INSTRUCTOR_LESSONS = gql`
     }
 `
 
+const GET_LESSON_CONTENTS = gql`
+    query($id: ID!){
+        lesson(id: $id){
+            contents{
+                type
+                data
+                id
+            }
+        }
+    }
+`
+
 export {
     GET_LESSONS,
     GET_INSTRUCTOR_BY_CREDENTIALS,
     GET_INSTRUCTOR_LESSONS,
+    GET_LESSON_CONTENTS,
 };
