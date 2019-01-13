@@ -8,7 +8,7 @@ const LessonCard = (props) => {
     const handleClick = (e) => {
         props.stateMethods.setCurrentLesson(lesson)
     }
-    
+    console.log(lesson)
     return(
         <div className="lesson-card" data-id={lesson.id} onClick={handleClick}>
             <h3>{lesson.title}</h3>
@@ -16,7 +16,7 @@ const LessonCard = (props) => {
             
             <h6>tags: {lesson.tags.join(", ")}</h6>
             <h6>type: {lesson.type}</h6>
-
+            <h6>published: {`${lesson.published}`}</h6>
             <hr/>
         </div>
     )

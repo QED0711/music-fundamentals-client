@@ -10,7 +10,7 @@ const InstructorLogin = (props) => {
 
     if(props.state.currentUser.signedIn){
         return(
-            <Redirect to="/instructors/lessons" />
+            <Redirect to={`/instructors/${props.state.currentUser.id}/lessons`} />
         )
     }
 
@@ -41,7 +41,7 @@ const InstructorLogin = (props) => {
 
                         <form id="instructor-login" onChange={handleLoginChange} onSubmit={submitWrapper(data)}>
                             <label>Email</label><br/>
-                            <input id="email-input" type="text"/><br/>
+                            <input id="email-input" type="text" defaultValue="qdizon@gmail.com"/><br/>
                             <label>Password</label><br/>
                             <input id="password-input" type="password"/><br/>
                             <input type="submit" />

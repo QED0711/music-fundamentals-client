@@ -21,8 +21,11 @@ import LessonsList from './components/LessonsList';
 
 import InstructorLogin from './components/InstructorPortal/InstructorLogin';
 import InstructorLessons from './components/InstructorPortal/InstructorLessons';
+import NewLessonForm from './components/InstructorPortal/NewLessonForm';
 
 import LessonContainer from './components/LessonViews/LessonContainer';
+import LessonEditor from './components/LessonViews/LessonEditor';
+
 
 // Apollo Client Setup
 const client = new ApolloClient({
@@ -109,7 +112,7 @@ class App extends Component {
           <Banner title={this.state.pageTitle}/>
           <Navigation stateMethods={this.stateMethods}/>
           
-          {/* ===== ROUTES ===== */}
+          {/* ===== MAIN NAVIGATION ROUTES ===== */}
 
           <Route path="/" exact component={Landing} />
           <Route path="/lessons" exact 
@@ -119,14 +122,21 @@ class App extends Component {
               render={props => <InstructorLogin {...props} state={this.state} stateMethods={this.stateMethods}/>}
             />
           
-          <Route path="/instructors/lessons" exact 
+          <Route path="/instructors/:id/lessons" exact 
               render={props => <InstructorLessons {...props} state={this.state} stateMethods={this.stateMethods}/>}
-            />
+          />
+          
+          <Route path="/instructor/:id/lessons/new" exact 
+              render={props => <NewLessonForm {...props} state={this.state} stateMethods={this.stateMethods}/>}
+          />
 
-            {/* ===== ROUTES ===== */}
+            {/* ===== LESSON ROUTES ===== */}
 
-          <Route path="/lessons/:id" 
+          <Route path="/lessons/:id" exact
             render={props => <LessonContainer  {...props} state={this.state} stateMethods={this.stateMethods}/>}
+          />
+          <Route path="/lessons/:id/edit" exact
+            render={props => <LessonEditor  {...props} state={this.state} stateMethods={this.stateMethods}/>}
           />
 
         </div>

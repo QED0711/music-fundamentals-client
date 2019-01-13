@@ -9,6 +9,7 @@ const GET_LESSONS = gql`
             tags
             id
             instructorId
+            published
         }
     }
 `
@@ -29,10 +30,12 @@ const GET_INSTRUCTOR_LESSONS = gql`
         instructor(id: $id){
             lessons{
                 id
+                instructorId
                 type
                 title
                 tags
                 description
+                published
             }
         }
     }

@@ -1,0 +1,21 @@
+
+// Workflow for editing or adding content to a lesson
+
+
+state hs the following field:
+
+    lessonEdits: {
+        currentLessonId: currentLessonId, // (e.g. "5c38a32aa9726d044cae2263")
+
+        lessonContents: [ // an array holding lesson content objects, arranged in their position order
+            {
+                id: "5c3363fcd8022c0272a83b87", // this field replaced by random string if not saved
+                lessonId: currentLessonId,
+                type: "paragraph", // or other type
+                data: [
+                    "This is some sample data here"
+                ],
+                position: 0 // integer denoting the position in the lesson
+            }
+        ]
+    }

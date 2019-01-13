@@ -24,6 +24,11 @@ let defaultState = {
         title: null,
         description: null,
         tags: null,
+    },
+
+    lessonEdits: {
+        currentLessonId: null,
+        lessonContents: []
     }
     
 }

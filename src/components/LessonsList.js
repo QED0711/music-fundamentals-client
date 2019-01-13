@@ -15,7 +15,11 @@ import redirectToCurrentLesson from '../js/redirectToCurrentLesson';
 
     function renderLessonCards(lessons){
         return lessons.map(lesson => {
-            return <LessonCard lesson={lesson} key={lesson.id} stateMethods={props.stateMethods}/>
+            if(lesson.published){
+                return (
+                    <LessonCard lesson={lesson} key={lesson.id} stateMethods={props.stateMethods}/>
+                )
+            }
         })
     }
     
