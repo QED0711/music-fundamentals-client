@@ -37,7 +37,7 @@ const NewLessonForm = (props) => {
                             createLesson({variables: lessonData})
                         }}>
                             {
-                                // if the mutation was successful, redirect
+                                // if the mutation was successful, redirect to the newley created lesson edit page
                                 data && <Redirect to={`/lessons/${data.createLesson.id}/edit`} />
                             }
                             <label>Type</label><br/>

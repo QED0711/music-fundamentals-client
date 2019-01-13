@@ -44,6 +44,9 @@ const GET_INSTRUCTOR_LESSONS = gql`
 const GET_LESSON_CONTENTS = gql`
     query($id: ID!){
         lesson(id: $id){
+            title
+            description
+            tags
             contents{
                 type
                 data
