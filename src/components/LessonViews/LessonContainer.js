@@ -33,7 +33,7 @@ const LessonContainer = (props) => {
                             {
                                 props.state.currentUser.id === lesson.instructorId 
                                 && 
-                                <LessonEditBanner lesson={lesson}/>
+                                <LessonEditBanner lesson={lesson} state={props.state}/>
                             }
                             {contentMapper(contents)}
                         </div>

@@ -14,6 +14,23 @@ const CREATE_NEW_LESSON = gql`
             type
             title
             description
+            published
+            tags
+        }
+    }
+`
+
+const CHANGE_LESSON_PUBLISH_STATE = gql`
+    mutation toggleLessonPublish($id: ID!){
+        toggleLessonPublish(
+            id: $id
+        ){
+            id
+            instructorId
+            type
+            title
+            description
+            published
             tags
         }
     }
@@ -21,5 +38,6 @@ const CREATE_NEW_LESSON = gql`
 
 
 export {
-    CREATE_NEW_LESSON
+    CREATE_NEW_LESSON,
+    CHANGE_LESSON_PUBLISH_STATE,
 }
