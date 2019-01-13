@@ -35,7 +35,7 @@ const LessonEditBanner = (props) => {
                                     toggleLessonPublish({variables: {id: lesson.id}})                                    
                                 }
                             }>{lesson.published ? "Unpublish" : "Publish"}</button>
-                            
+                            <button>Delete</button>
 
                         </div>
                     )
