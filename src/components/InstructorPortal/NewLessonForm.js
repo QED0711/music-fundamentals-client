@@ -4,7 +4,6 @@ import {Redirect} from 'react-router-dom';
 
 import {Mutation} from 'react-apollo'
 import {CREATE_NEW_LESSON} from '../../queries/mutations'
-import {GET_INSTRUCTOR_LESSONS} from '../../queries/queries'
 
 const NewLessonForm = (props) => {
     const instructorId = props.match.params.id
@@ -24,23 +23,7 @@ const NewLessonForm = (props) => {
     }
 
     return(
-        <Mutation 
-            mutation={CREATE_NEW_LESSON} 
-            update={
-                (cache, {data: {createLesson}}) => {
-                    const {instructor} = cache.readQuery({query: GET_INSTRUCTOR_LESSONS, variables: {id: instructorId}})
-                    let lessons = instructor.lessons;
-                    
-                    debugger
-
-                    cache.writeQuery({
-                        query: GET_INSTRUCTOR_LESSONS,
-                        variables: {id: instructorId},
-                        data: {lessons: [...lessons, createLesson]}
-                    })
-                }
-            }
-        >
+        <Mutation mutation={CREATE_NEW_LESSON}>
             {
                 (createLesson, {data}) => {
                     return(

@@ -22,9 +22,10 @@ const InstructorLessons = (props) => {
     return(
         <Query query={GET_LESSONS_BY_INSTRUCTOR} variables={{instructorId: currentUser.id}}>
             {
-                ({data, loading}) => {
+                ({data, loading, refetch}) => {
                     if(loading) return <h2>Loading...</h2>
                     if(props.state.currentLesson.id) return redirectToCurrentLesson(props.state.currentLesson)
+                    refetch() // this will refetch the data on every load of this component
                     return(
                         <div className="page-body">
                             <h2>Your Lessons</h2>

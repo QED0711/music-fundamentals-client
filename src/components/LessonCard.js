@@ -8,7 +8,6 @@ const LessonCard = (props) => {
     const handleClick = (e) => {
         props.stateMethods.setCurrentLesson(lesson)
     }
-    console.log(lesson)
     return(
         <div className="lesson-card" data-id={lesson.id} onClick={handleClick}>
             <h3>{lesson.title}</h3>
