@@ -62,9 +62,10 @@ const GET_LESSON_CONTENTS = gql`
             description
             tags
             contents{
+                id
                 type
                 data
-                id
+                position
             }
         }
     }

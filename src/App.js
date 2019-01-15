@@ -46,6 +46,7 @@ class App extends Component {
     this.loginUser = this.loginUser.bind(this);
     this.setCurrentLesson = this.setCurrentLesson.bind(this);
     this.setCurrentLessonNull = this.setCurrentLessonNull.bind(this);
+    this.setCurrentLessonContents = this.setCurrentLessonContents.bind(this);
     
     this.stateMethods = {}
     for(let item in this){
@@ -96,11 +97,18 @@ class App extends Component {
         title: null,
         description: null,
         tags: null,
+        contents: null
       } 
     })
   }
 
-
+  setCurrentLessonContents(contents){
+    let currentLesson = this.state.currentLesson
+    let withContents = {...currentLesson, contents}
+    this.setState({
+      currentLesson: withContents
+    })
+  }
 
   render() {
     console.log(this.state)

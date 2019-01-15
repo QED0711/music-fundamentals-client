@@ -6,11 +6,12 @@ import {GET_LESSON_CONTENTS} from "../../queries/queries";
 import contentRenderer from '../../js/contentRenderer';
 
 import LessonEditBanner from './LessonEditBanner';
+import NewContentForm from '../LessonEditForms/NewContentForm';
 
 const LessonContainer = (props) => {
     let lesson = props.state.currentLesson
     let lessonID = props.match.params.id
-    
+    let {setCurrentLessonContents} = props.stateMethods
     const contentMapper = (contents) => {
         return contents.map(c => {
             return contentRenderer(c)
@@ -24,16 +25,24 @@ const LessonContainer = (props) => {
 
             <Query query={GET_LESSON_CONTENTS} variables={{id: lessonID}}>
             {
-                ({data, error, loading, variables}) => {
+                ({data, refetch, loading}) => {
                     if(loading) return <h4>loading...</h4>
                     let contents = data.lesson.contents
-                    console.log(contents)
+                    refetch()
                     return(
                         <div>
                             {
                                 props.state.currentUser.id === lesson.instructorId 
                                 && 
-                                <LessonEditBanner lesson={lesson} state={props.state}/>
+                                <div>
+                                    <LessonEditBanner lesson={lesson} state={props.state}/>
+                                    <NewContentForm lesson={lesson} state={props.state} />
+                                </div>
+                            }
+                            {
+                                !props.state.currentLesson.contents 
+                                &&
+                                setCurrentLessonContents(contents)
                             }
                             {contentMapper(contents)}
                         </div>

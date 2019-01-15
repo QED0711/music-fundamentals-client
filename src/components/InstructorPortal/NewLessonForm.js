@@ -43,6 +43,7 @@ const NewLessonForm = (props) => {
                             <select id="new-lesson-type">
                                 <option value="reading">Reading</option>
                                 <option value="assignment">Interactive Assignment</option>
+                                <option value="dictation">Dictation</option>
                             </select><br/>
     
                             <label>Title</label><br/>
