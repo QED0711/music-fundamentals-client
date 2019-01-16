@@ -7,14 +7,18 @@ import contentRenderer from '../../js/contentRenderer';
 
 import LessonEditBanner from './LessonEditBanner';
 import NewContentForm from '../LessonEditForms/NewContentForm';
+import ContentCard from '../ContentCard';
 
 const LessonContainer = (props) => {
     let lesson = props.state.currentLesson
+    let currentContents = lesson.contents
     let lessonID = props.match.params.id
     let {setCurrentLessonContents} = props.stateMethods
+   
     const contentMapper = (contents) => {
-        return contents.map(c => {
-            return contentRenderer(c)
+        contents = contents.sort((c1,c2) => c1.position - c2.position);
+        return contents.map((content, index) => {
+            return <ContentCard key={index} content={content}/>
         })
     }
 

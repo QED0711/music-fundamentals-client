@@ -3,6 +3,8 @@ import React from 'react'
 import {Mutation} from 'react-apollo';
 import {CREATE_NEW_CONTENT} from '../../queries/mutations';
 
+import contentEditOptions from '../../js/contentEditOptions'
+
 const NewContentForm = (props) => {
     
     const lesson = props.lesson
@@ -35,11 +37,10 @@ const NewContentForm = (props) => {
                             createContent({variables: contentInfo});
                             }
                         }
-                        
                         >
                             <h3>Create New Content</h3>
                             <label>Content Type</label><br/>
-                            <select id="new-content-type">
+                            <select id="new-content-type" onChange={contentEditOptions}>
                                 <option value="paragraph">Paragraph</option>
                                 <option value="heading2">Section Heading</option>
                                 <option value="heading3">Sub-Section Heading</option>
@@ -51,10 +52,10 @@ const NewContentForm = (props) => {
                                 <option value="numberedList">Numbered List</option>
                             </select><br/>
 
-                            <label>Content</label><br/>
-                            <textarea id="new-content-data"></textarea>
+                            <div id="content-edit-options"></div>
                             <br/>
                             <input type="submit" value="Save Changes"/>
+                            
                         </form>
 
                     ) 
