@@ -29,6 +29,11 @@ const LessonContainer = (props) => {
                     if(loading) return <h4>loading...</h4>
                     let contents = data.lesson.contents
                     refetch()
+                    {
+                        !props.state.currentLesson.contents 
+                        &&
+                        setCurrentLessonContents(contents)
+                    }
                     return(
                         <div>
                             {
@@ -36,13 +41,8 @@ const LessonContainer = (props) => {
                                 && 
                                 <div>
                                     <LessonEditBanner lesson={lesson} state={props.state}/>
-                                    <NewContentForm lesson={lesson} state={props.state} />
+                                    <NewContentForm lesson={lesson} state={props.state} stateMethods={props.stateMethods} />
                                 </div>
-                            }
-                            {
-                                !props.state.currentLesson.contents 
-                                &&
-                                setCurrentLessonContents(contents)
                             }
                             {contentMapper(contents)}
                         </div>

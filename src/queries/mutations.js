@@ -36,8 +36,25 @@ const CHANGE_LESSON_PUBLISH_STATE = gql`
     }
 `
 
+const CREATE_NEW_CONTENT = gql`
+    mutation createContent($lessonId: ID!, $type: String!, $data: [String!]!, $position: Int!){
+        createContent(
+            lessonId: $lessonId,
+            type: $type,
+            data: $data,
+            position: $position
+        ){
+            id
+            data
+            type
+            position
+        }
+    }
+`
+
 
 export {
     CREATE_NEW_LESSON,
     CHANGE_LESSON_PUBLISH_STATE,
+    CREATE_NEW_CONTENT,
 }
