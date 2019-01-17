@@ -22,7 +22,9 @@ class NewContentForm extends Component {
 
     getContentInfo = () => {
         const type = document.getElementById("new-content-type").value
-        const data = [...document.getElementsByClassName("new-content-data")].map(x => x.value)
+        const data = [...document.getElementsByClassName("new-content-data")].map(x => {
+            return x.value !== "" ? x.value : null
+        }).filter(x => x) // filter stacked on map here removes empty items (e.g. if you skip a list item)
 
         // get the user defined position of the new content element if given
         // if not given, or outside the range of elements, set to the default last position
