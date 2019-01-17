@@ -48,6 +48,7 @@ class App extends Component {
     this.setCurrentLessonNull = this.setCurrentLessonNull.bind(this);
     this.setCurrentLessonContents = this.setCurrentLessonContents.bind(this);
     this.appendContent = this.appendContent.bind(this);
+    this.removeDeletedContent = this.removeDeletedContent.bind(this);
     
     this.stateMethods = {}
     for(let item in this){
@@ -117,6 +118,15 @@ class App extends Component {
     if(!currentLesson.contents.some(c => c.id === content.id)){ // prevents content from being pushed twice
       currentLesson.contents.push(content);
     }
+    this.setState({
+      currentLesson
+    })
+  }
+
+  removeDeletedContent(contentId){
+    let currentLesson = this.state.currentLesson;
+    let contents = currentLesson.contents.filter(c => c.id !== contentId);
+    currentLesson = {...currentLesson, contents}
     this.setState({
       currentLesson
     })

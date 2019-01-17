@@ -1,69 +1,96 @@
-import React from 'react'
+import React, {Component} from 'react'
 
 import {Mutation} from 'react-apollo';
 import {CREATE_NEW_CONTENT} from '../../queries/mutations';
 
 import contentEditOptions from '../../js/contentEditOptions'
 
-const NewContentForm = (props) => {
-    
-    const lesson = props.lesson
-    const {appendContent} = props.stateMethods
+class NewContentForm extends Component {
 
-    const getContentInfo = () => {
+    constructor(props){
+        super(props);
+        this.state = {
+            contentType: "paragraph"
+        }
+
+        this.lesson = this.props.lesson
+        this.appendContent = this.props.stateMethods.appendContent;
+
+        this.setContentType = this.setContentType.bind(this);
+    }
+
+
+    getContentInfo = () => {
         const type = document.getElementById("new-content-type").value
-        const data = document.getElementById("new-content-data").value
-        let position = lesson.contents.length
+        const data = [...document.getElementsByClassName("new-content-data")].map(x => x.value)
+
+        // get the user defined position of the new content element if given
+        // if not given, or outside the range of elements, set to the default last position
+        const userPosition = document.getElementById("new-content-position").value;
+        let position = userPosition !== "" ? parseInt(userPosition) : this.lesson.contents.length;
+        if(position > this.lesson.contents.length) position = this.lesson.contents.length;
+        
+        
         return{
             type,
-            data: [data],
+            data,
             position,
-            lessonId: lesson.id
+            lessonId: this.lesson.id
         }
     }
 
-    return(
-        <Mutation mutation={CREATE_NEW_CONTENT}>
-            {
-                (createContent, {data}) => {
-                    if(data){
-                        appendContent(data.createContent)
-                    }
-                    return(
+    setContentType(e){
+        let contentType = e.target.value;
+        this.setState({
+            contentType
+        })
+    }
+
+    render(){
         
-                        <form id="new-content-form" onSubmit={ e => {
-                            e.preventDefault();    
-                            const contentInfo = getContentInfo();
-                            createContent({variables: contentInfo});
-                            }
+        return(
+            <Mutation mutation={CREATE_NEW_CONTENT}>
+                {
+                    (createContent, {data}) => {
+                        if(data){
+                            this.appendContent(data.createContent)
                         }
-                        >
-                            <h3>Create New Content</h3>
-                            <label>Content Type</label><br/>
-                            <select id="new-content-type" onChange={contentEditOptions}>
-                                <option value="paragraph">Paragraph</option>
-                                <option value="heading2">Section Heading</option>
-                                <option value="heading3">Sub-Section Heading</option>
-                                <option value="image">Image</option>
-                                <option value="nfPlayer">Noteflight Score</option>
-                                <option value="nfInteractive">Noteflight Interactive Score</option>
-                                <option value="iframe">Embeded iframe</option>
-                                <option value="bulletList">Bullet Point List</option>
-                                <option value="numberedList">Numbered List</option>
-                            </select><br/>
-
-                            <div id="content-edit-options"></div>
-                            <br/>
-                            <input type="submit" value="Save Changes"/>
-                            
-                        </form>
-
-                    ) 
+                        return(
+            
+                            <form id="new-content-form" onSubmit={ e => {
+                                e.preventDefault();    
+                                const contentInfo = this.getContentInfo();
+                                createContent({variables: contentInfo});
+                                }
+                            }
+                            >
+                                <h3>Create New Content</h3>
+                                <label>Content Type</label><br/>
+                                <select id="new-content-type" onChange={this.setContentType}>
+                                    <option value="paragraph">Paragraph</option>
+                                    <option value="heading2">Section Heading</option>
+                                    <option value="heading3">Sub-Section Heading</option>
+                                    <option value="image">Image</option>
+                                    <option value="nfPlayer">Noteflight Score</option>
+                                    <option value="nfInteractive">Interactive Noteflight Score</option>
+                                    <option value="iframe">Embeded iframe</option>
+                                    <option value="bulletList">Bullet Point List</option>
+                                    <option value="numberedList">Numbered List</option>
+                                </select><br/>
+    
+                                {contentEditOptions(this.state.contentType)}
+                                <br/>
+                                <input type="submit" value="Save Changes"/>
+                                
+                            </form>
+    
+                        ) 
+                    }
                 }
-            }
-        </Mutation>
-
-    )
+            </Mutation>
+    
+        )
+    }
 }
 
 export default NewContentForm;

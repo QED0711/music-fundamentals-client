@@ -1,28 +1,17 @@
 import React from 'react';
 
-const contentEditOptions = () => {
-    const type = document.getElementById("new-content-type").value;
-    let options
+import DefaultContentOptions from '../components/LessonEditForms/ContentOptions/DefaultContentOptions'
+import ImageContentOptions from '../components/LessonEditForms/ContentOptions/ImageContentOptions'
+
+const contentEditOptions = (type) => {
     switch(type){
-        case("Paragraph"):
-            options = `
-                <div id="content-edit-options">
-                    <textarea></textarea>
-                </div>
-            `
+        case("image"):
+            return <ImageContentOptions />
         default:
-            options = `
-                <div id="content-edit-options">
-                    <label>Text</label><br/>
-                    <textarea></textarea>
-                    <br/>
-                    <label>Position (optional)</label><br/>
-                    <input type="number"/>
-                </div>
-            `
+            return <DefaultContentOptions />
             
     }
-    document.getElementById("content-edit-options").innerHTML = options;
+
 }
 
 export default contentEditOptions;

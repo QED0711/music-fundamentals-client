@@ -18,7 +18,7 @@ const LessonContainer = (props) => {
     const contentMapper = (contents) => {
         contents = contents.sort((c1,c2) => c1.position - c2.position);
         return contents.map((content, index) => {
-            return <ContentCard key={index} content={content}/>
+            return <ContentCard key={index} content={content} lesson={lesson} state={props.state} stateMethods={props.stateMethods}/>
         })
     }
 

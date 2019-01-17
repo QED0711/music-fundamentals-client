@@ -52,9 +52,18 @@ const CREATE_NEW_CONTENT = gql`
     }
 `
 
+const DELETE_CONTENT = gql`
+    mutation deleteContent($id: ID!){
+        deleteContent(id: $id){
+            id
+        }
+    }
+`
+
 
 export {
     CREATE_NEW_LESSON,
     CHANGE_LESSON_PUBLISH_STATE,
     CREATE_NEW_CONTENT,
+    DELETE_CONTENT,
 }
