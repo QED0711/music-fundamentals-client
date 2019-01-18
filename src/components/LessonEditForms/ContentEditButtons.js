@@ -1,16 +1,16 @@
 import React from 'react';
 
 import DeleteContent from './DeleteContentButton';
+import ContentPositionButtons from './ContentPositionButtons';
 
 const ContentEditButtons = (props) => {
-    let {content} = props;
+    let {content, lesson} = props;
     
     return(
         <div className="content-edit-buttons">
             <button>Edit</button>
             <DeleteContent content={content} stateMethods={props.stateMethods}/>
-            <button>Move Up</button>
-            <button>Move Down</button>
+            <ContentPositionButtons content={content} lesson={lesson} stateMethods={props.stateMethods} />
         </div>
     )
 

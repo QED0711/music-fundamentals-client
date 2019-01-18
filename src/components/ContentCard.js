@@ -11,7 +11,7 @@ const ContentCard = (props) => {
             {
                 (lesson.instructorId === state.currentUser.id)
                 &&
-                <ContentEditButtons content={content} stateMethods={stateMethods}/>
+                <ContentEditButtons content={content} stateMethods={stateMethods} lesson={lesson}/>
             }
             {contentRenderer(content)}
         </div>

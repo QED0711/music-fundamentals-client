@@ -11,7 +11,6 @@ import ContentCard from '../ContentCard';
 
 const LessonContainer = (props) => {
     let lesson = props.state.currentLesson
-    let currentContents = lesson.contents
     let lessonID = props.match.params.id
     let {setCurrentLessonContents} = props.stateMethods
    
