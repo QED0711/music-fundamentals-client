@@ -1,18 +1,39 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import DeleteContent from './DeleteContentButton';
 import ContentPositionButtons from './ContentPositionButtons';
+import ContentEditForm from './ContentEditForm';
 
-const ContentEditButtons = (props) => {
-    let {content, lesson} = props;
-    
-    return(
-        <div className="content-edit-buttons">
-            <button>Edit</button>
-            <DeleteContent content={content} stateMethods={props.stateMethods}/>
-            <ContentPositionButtons content={content} lesson={lesson} stateMethods={props.stateMethods} />
-        </div>
-    )
+class ContentEditButtons extends Component {
+    constructor(props){
+        super(props);
+        this.content = this.props.content
+        this.lesson = this.props.lesson
+
+        this.state={
+            editMode: false
+        }
+
+        this.enterEditMode = this.enterEditMode.bind(this)
+    }
+
+    enterEditMode(){
+        this.setState({
+            editMode: true
+        })
+    }
+
+    render(){
+        return(
+            <div className="content-edit-buttons">
+                {
+                    this.state.editMode ? <ContentEditForm content={this.content} /> : <button onClick={this.enterEditMode}>Edit</button>
+                }
+                <DeleteContent content={this.content} stateMethods={this.props.stateMethods}/>
+                <ContentPositionButtons content={this.content} lesson={this.lesson} stateMethods={this.props.stateMethods} />
+            </div>
+        )
+    }
 
 }
 

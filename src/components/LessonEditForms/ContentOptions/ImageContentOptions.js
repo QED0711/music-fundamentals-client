@@ -1,17 +1,17 @@
 import React from 'react';
 
-const ImageContentOptions = (props) => {
+const ImageContentOptions = ({content}) => {
 
     return(
         <div id="content-edit-options">
             <label>Image Url</label><br/>
-            <input className="new-content-data" type="text" required/>
+            <input className={content ? "edit-content-data" : "new-content-data"} type="text" required defaultValue={content && content.data[0] || ""}/>
             <br/>
             <label>Image Descriptions</label><br/>
-            <textarea className="new-content-data" required></textarea>
+            <textarea className={content ? "edit-content-data" : "new-content-data"} required defaultValue={content && content.data[1] || ""}></textarea>
             <br/>
             <label>Position (optional)</label><br/>
-            <input id="new-content-position" type="number"/>
+            <input id={content ? "edit-content-position" : "new-content-position"} type="number" defaultValue={content && content.position + 1}/>
         </div>
     )
 

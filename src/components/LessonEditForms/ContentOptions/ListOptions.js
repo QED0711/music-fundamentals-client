@@ -4,11 +4,10 @@ import React, {Component} from 'react';
 
 // ListItemInput Component
 
-const ListItemInput = (props) => {
-    let {newItem} = props
+const ListItemInput = ({newItem, data}) => {
     return(
         <div>
-            <textarea className="new-content-data" defaultValue="" onChange={newItem}></textarea>
+            <textarea className={data ? "edit-content-data" : "new-content-data"} defaultValue={data && (data || "")} onChange={newItem}></textarea>
             <br/>
         </div>
     )
@@ -20,10 +19,24 @@ const ListItemInput = (props) => {
 class ListOptions extends Component {
     constructor(props){
         super(props);
+
         this.listItemCount = this.listItemCount.bind(this);
-        this.state= {
-            listItems: [<ListItemInput key={0} newItem={this.listItemCount} />]
+        
+        let listItems = []
+        if(this.props.content){
+            let data
+            for(let i = 0; i < this.props.content.data.length; i++){
+                data = this.props.content.data[i]
+                listItems.push(<ListItemInput key={i} newItem={this.listItemCount} data={data}/>)
+            }
+        } else {
+            listItems = [<ListItemInput key={0} newItem={this.listItemCount} />]
+        } 
+        
+        this.state = {
+            listItems
         }
+
     }
 
     listItemCount(){
@@ -38,17 +51,15 @@ class ListOptions extends Component {
         }
     }
 
-    // need to figure out a way to add a new textarea element whenever the last textarea element is typed in
 
     render(){
         return(
             <div id="content-edit-options">
                 <label>text</label><br/>
-                {/* <textarea className="new-content-data" required onChange={this.listItemCount}></textarea> */}
                 {this.state.listItems}
                 <br/>
                 <label>Position (optional)</label><br/>
-                <input id="new-content-position" type="number"/>
+                <input id={this.props.content ? "edit-content-position" : "new-content-position"} type="number"/>
             </div>
         )
     }
