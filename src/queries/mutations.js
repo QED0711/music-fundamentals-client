@@ -70,6 +70,18 @@ const REORDER_CONTENTS = gql`
     }
 `
 
+const UPDATE_CONTENT = gql`
+    mutation updateContent($id: ID!, $data: [String!]!){
+        updateContent(id: $id, data: $data){
+            id
+            type
+            data
+            lessonId
+            position
+        }
+    }
+`
+
 
 export {
     CREATE_NEW_LESSON,
@@ -77,4 +89,5 @@ export {
     CREATE_NEW_CONTENT,
     DELETE_CONTENT,
     REORDER_CONTENTS,
+    UPDATE_CONTENT,
 }
