@@ -28,7 +28,7 @@ const LessonEditBanner = (props) => {
                     return(
                         <div id="lesson-edit-banner">
 
-                            <Link to={`/lessons/${lesson.id}/edit`}>Edit</Link><br/>
+                            {/* <Link to={`/lessons/${lesson.id}/edit`}>Edit</Link><br/> */}
                             <button id="lesson-publish-button" className={lesson.published ? "button-published" : "button-unpublished" } 
                                 onClick={
                                 (e) => {
