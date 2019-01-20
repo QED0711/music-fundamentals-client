@@ -60,6 +60,18 @@ const DELETE_CONTENT = gql`
     }
 `
 
+const REMOVE_AND_REORDER_CONTENTS = gql`
+    mutation removeAndReorderContents($id: ID!, $lessonId: ID!, $position: Int!){
+        removeAndReorderContents(id: $id, lessonId: $lessonId, position: $position){
+            id
+            lessonId
+            type
+            data
+            position
+        }
+    }
+`
+
 const REORDER_CONTENTS = gql`
     mutation reorderContents($lessonId: ID!, $id: ID!, $position: Int!){
         reorderContents(lessonId: $lessonId, id: $id, position: $position){
@@ -88,6 +100,7 @@ export {
     CHANGE_LESSON_PUBLISH_STATE,
     CREATE_NEW_CONTENT,
     DELETE_CONTENT,
+    REMOVE_AND_REORDER_CONTENTS,
     REORDER_CONTENTS,
     UPDATE_CONTENT,
 }

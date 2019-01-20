@@ -1,18 +1,25 @@
 import React from 'react';
 
 import {Mutation} from 'react-apollo'
-import {DELETE_CONTENT} from '../../queries/mutations';
+import {DELETE_CONTENT, REMOVE_AND_REORDER_CONTENTS} from '../../queries/mutations';
 
 const DeleteContentButton = (props) => {
-    let {content, stateMethods} = props
+    let {content, stateMethods, lesson} = props
     return(
-        <Mutation mutation={DELETE_CONTENT}>
+        <Mutation mutation={REMOVE_AND_REORDER_CONTENTS}>
             {
-                (deleteContent, {data}) => {
+                (removeAndReorderContents, {data}) => {
                     return(
                         <button onClick={ e => {
-                            deleteContent({variables: {id: content.id}})
-                            stateMethods.removeDeletedContent(content.id)
+                            debugger
+                            removeAndReorderContents({
+                                variables: {
+                                    id: content.id,
+                                    lessonId: lesson.id,
+                                    position: content.position
+                                }
+                            })
+                            // stateMethods.removeDeletedContent(content.id)
                         }
                         }>Delete</button>
                     )

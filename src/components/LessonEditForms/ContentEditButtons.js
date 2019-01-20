@@ -29,7 +29,7 @@ class ContentEditButtons extends Component {
                 {
                     this.state.editMode ? <ContentEditForm content={this.content} stateMethods={this.props.stateMethods}/> : <button onClick={this.enterEditMode}>Edit</button>
                 }
-                <DeleteContent content={this.content} stateMethods={this.props.stateMethods}/>
+                <DeleteContent content={this.content} lesson={this.props.lesson} stateMethods={this.props.stateMethods}/>
                 <ContentPositionButtons content={this.content} lesson={this.lesson} stateMethods={this.props.stateMethods} />
             </div>
         )
