@@ -138,7 +138,9 @@ class App extends Component {
       <ApolloProvider client={client} >
       <BrowserRouter>
         <div className="App">
-
+          {
+            console.log("WINDOW: ", window.document)
+          }
           <Banner title={this.state.pageTitle}/>
           <Navigation stateMethods={this.stateMethods}/>
           

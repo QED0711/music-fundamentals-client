@@ -7,6 +7,7 @@ import ContentHeading3 from '../components/contents/ContentHeading3';
 import ContentBulletList from '../components/contents/ContentBulletList';
 import ContentNumberedList from '../components/contents/ContentNumberedList';
 import ContentImage from '../components/contents/ContentImage';
+import ContentNFPlayer from '../components/contents/ContentNFPlayer';
 
 const contentRenderer = (content, options = {}) => {
     switch(content.type){
@@ -22,6 +23,8 @@ const contentRenderer = (content, options = {}) => {
             return(<ContentNumberedList key={content.id} content={content.data} />);
         case("image"):
             return(<ContentImage key={content.id} content={content.data} options={options}/>);
+        case("nfPlayer"):
+            return(<ContentNFPlayer key={content.id} content={content.data} options={options}/>);
         
     }
 }
