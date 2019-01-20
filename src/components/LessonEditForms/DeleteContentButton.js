@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Mutation} from 'react-apollo'
-import {DELETE_CONTENT, REMOVE_AND_REORDER_CONTENTS} from '../../queries/mutations';
+import {REMOVE_AND_REORDER_CONTENTS} from '../../queries/mutations';
 
 const DeleteContentButton = (props) => {
     let {content, stateMethods, lesson} = props
@@ -9,9 +9,11 @@ const DeleteContentButton = (props) => {
         <Mutation mutation={REMOVE_AND_REORDER_CONTENTS}>
             {
                 (removeAndReorderContents, {data}) => {
+                    if(data){
+                        stateMethods.setCurrentLessonContents(data.removeAndReorderContents)
+                    }
                     return(
                         <button onClick={ e => {
-                            debugger
                             removeAndReorderContents({
                                 variables: {
                                     id: content.id,
