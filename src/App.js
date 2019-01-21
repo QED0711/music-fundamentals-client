@@ -49,6 +49,7 @@ class App extends Component {
     this.setCurrentLessonContents = this.setCurrentLessonContents.bind(this);
     this.appendContent = this.appendContent.bind(this);
     this.removeDeletedContent = this.removeDeletedContent.bind(this);
+    this.setPlayerScores = this.setPlayerScores.bind(this);
     
     this.stateMethods = {}
     for(let item in this){
@@ -134,13 +135,22 @@ class App extends Component {
     })
   }
 
+  setPlayerScores(score){
+    score.addEventListener("scoreDataLoaded", function(){
+      console.log("Score Loaded")
+    })
+
+    this.setState({
+      playerScores: [score]
+    })
+  }
+
   render() {
     console.log(this.state)
     return (
       <ApolloProvider client={client} >
       <BrowserRouter>
         <div className="App">          
-
           <Banner title={this.state.pageTitle}/>
           <Navigation stateMethods={this.stateMethods}/>
           

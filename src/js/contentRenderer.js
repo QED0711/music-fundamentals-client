@@ -8,6 +8,7 @@ import ContentBulletList from '../components/contents/ContentBulletList';
 import ContentNumberedList from '../components/contents/ContentNumberedList';
 import ContentImage from '../components/contents/ContentImage';
 import ContentNFPlayer from '../components/contents/ContentNFPlayer';
+import ContentNFInteractive from '../components/contents/ContentNFInteractive';
 
 const contentRenderer = (content, stateMethods, options = {}) => {
     switch(content.type){
@@ -25,6 +26,8 @@ const contentRenderer = (content, stateMethods, options = {}) => {
             return(<ContentImage key={content.id} content={content.data} options={options}/>);
         case("nfPlayer"):
             return(<ContentNFPlayer key={content.id} content={content} stateMethods={stateMethods} options={options}/>);
+        case("nfInteractive"):
+            return(<ContentNFInteractive key={content.id} content={content} stateMethods={stateMethods} options={options}/>)
         
     }
 }
