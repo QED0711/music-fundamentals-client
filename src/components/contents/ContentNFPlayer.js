@@ -46,13 +46,25 @@ class ContentNFPlayer extends Component{
     }
 
     componentDidMount(){
-        const score = new this.NFClient.ScoreView(this.content.id, this.scoreCode, this.options)
-        const frame = document.getElementById(this.content.id)
-        frame.score = score
-        frame.onload = () => {
-            console.log("LOADED")
-            debugger
-        }
+        window.NFClient.init(() => {
+            // const score = new this.NFClient.ScoreView(this.content.id, this.scoreCode, this.options)
+            const frame = document.getElementById(this.content.id)
+            const score = new window.NFClient.ScoreView(frame)
+            frame.score = score
+            frame.onload = () => {
+                console.log("LOADED")
+                score.addEventListener("scoreDataLoaded", function(){
+                    score.getMusicXML().done(data => console.log(data))
+                })
+                // score.addEventListener("selectionChange", async function(e){
+                //     score.getScore().done(data => console.log(data))
+                //     console.log("NEW SELECTION!!!")
+                    
+                // })
+                // debugger
+            }
+
+        })
 
     }
 
@@ -65,7 +77,8 @@ class ContentNFPlayer extends Component{
         return (
             <div className="content-box content-nf-player">
                 {/* this div element below will be replaceed by a noteflight embeded score */}
-                <div className="score-container" id={this.content.id}></div>
+                {/* <iframe className="score-container" id={this.content.id}></iframe> */}
+                <iframe id={this.content.id} src="https://www.noteflight.com/embed/8120ed2061deda2fe59478e99dfcf3c4bccfb44c?scale=1&displayMode=paginated&role=reader"></iframe>
             </div> 
         )
     }
