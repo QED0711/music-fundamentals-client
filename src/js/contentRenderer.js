@@ -9,7 +9,7 @@ import ContentNumberedList from '../components/contents/ContentNumberedList';
 import ContentImage from '../components/contents/ContentImage';
 import ContentNFPlayer from '../components/contents/ContentNFPlayer';
 
-const contentRenderer = (content, options = {}) => {
+const contentRenderer = (content, stateMethods, options = {}) => {
     switch(content.type){
         case("paragraph"):
             return(<ContentParagraph key={content.id} content={content.data} />);
@@ -24,7 +24,7 @@ const contentRenderer = (content, options = {}) => {
         case("image"):
             return(<ContentImage key={content.id} content={content.data} options={options}/>);
         case("nfPlayer"):
-            return(<ContentNFPlayer key={content.id} content={content.data} options={options}/>);
+            return(<ContentNFPlayer key={content.id} content={content} stateMethods={stateMethods} options={options}/>);
         
     }
 }

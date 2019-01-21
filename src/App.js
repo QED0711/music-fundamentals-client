@@ -57,6 +57,8 @@ class App extends Component {
       } 
     }
 
+    this.stateMethods.NFClient = window.NFClient;
+
   }
 
   handleLoginChange(){
@@ -137,10 +139,8 @@ class App extends Component {
     return (
       <ApolloProvider client={client} >
       <BrowserRouter>
-        <div className="App">
-          {
-            console.log("WINDOW: ", window.document)
-          }
+        <div className="App">          
+
           <Banner title={this.state.pageTitle}/>
           <Navigation stateMethods={this.stateMethods}/>
           

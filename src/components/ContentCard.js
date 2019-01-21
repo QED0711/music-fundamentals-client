@@ -13,7 +13,7 @@ const ContentCard = (props) => {
                 &&
                 <ContentEditButtons content={content} stateMethods={stateMethods} lesson={lesson}/>
             }
-            {contentRenderer(content)}
+            {contentRenderer(content, stateMethods)}
         </div>
     )
 
