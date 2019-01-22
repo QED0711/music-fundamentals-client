@@ -12,10 +12,12 @@ class ContentNFPlayer extends Component{
         // this.options.height = 500;
         // this.options.widht = 800;
 
-        this.options.viewParams = {
-            scale: 1,
-            role: "reader",
-            displayMode: "paginated"
+        this.options = {
+            viewParams: {
+                scale: 1,
+                role: "reader",
+                displayMode: "paginated"
+            }
         }
 
         this.scoreCode = this.parseNFUrl(content.data[0])

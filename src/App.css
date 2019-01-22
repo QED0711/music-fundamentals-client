@@ -39,3 +39,7 @@ iframe{
   min-height: 400px;
   box-shadow: 4px 4px 10px rgb(141, 141, 141);
 }
+
+.nf-answer-score{
+  display: none;
+}
