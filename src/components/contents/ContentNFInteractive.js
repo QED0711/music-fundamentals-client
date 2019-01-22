@@ -29,18 +29,34 @@ class ContentNFInteractive extends Component{
 
     componentDidMount(){
         // const score = new this.NFClient.ScoreView(this.content.id, this.exerciseScoreCode, this.options)
-        const exerciseIframe = document.getElementById(`exercise-${this.content.id}`);
-        const exercise = new this.NFClient.ScoreView(exerciseIframe);
         
-        exercise.addEventListener("scoreDataLoaded", function(e){
-            console.log("Exercise Data Loaded")
-        })
+        const exercise = new this.NFClient.ScoreView(`exercise-${this.content.id}`, this.exerciseScoreCode, this.options);
+        const answer = new this.NFClient.ScoreView(`answer-${this.content.id}`, this.answerScoreCode, this.options);
+
+        const exerciseFrame = document.getElementById(`exercise-${this.content.id}`)
+        const answerFrame = document.getElementById(`answer-${this.content.id}`)
+
+        // add class names here
+
+        exerciseFrame.onload = () => {
+            console.log("Exercise Loaded")
+            exercise.addEventListener("scoreDataLoaded", () => {
+                exercise.getScore().done(data => console.log(data))
+            })
+        }
         
-        const answerIframe = document.getElementById(`answer-${this.content.id}`);
-        const answer = new this.NFClient.ScoreView(answerIframe);
-        answer.addEventListener("scoreDataLoaded", function(e){
-            console.log("Answer Data Loaded")
-        })
+        answerFrame.onload = () => {
+            console.log("Answer Loaded")
+            answer.addEventListener("scoreDataLoaded", () => {
+                answer.getScore().done(data => console.log(data))
+            })
+        }
+        
+        // const answerIframe = document.getElementById(`answer-${this.content.id}`);
+        // const answer = new this.NFClient.ScoreView(answerIframe);
+        // answer.addEventListener("scoreDataLoaded", function(e){
+        //     console.log("Answer Data Loaded")
+        // })
 
 
 
@@ -52,9 +68,10 @@ class ContentNFInteractive extends Component{
         return (
             <div className="content-box content-nf-player">
                 {/* this div element below will be replaceed by a noteflight embeded score */}
-                {/* <div className="score-container" id={this.content.id}></div> */}
+                <div id={`exercise-${this.content.id}`}></div>
+                <div id={`answer-${this.content.id}`}></div>
                 
-                <iframe id={`exercise-${this.content.id}`} className="nf-iframe nf-interactive-iframe" 
+                {/* <iframe id={`exercise-${this.content.id}`} className="nf-iframe nf-interactive-iframe" 
                 src={`https://noteflight.com/embed/${this.exerciseScoreCode}?scale=1&role=reader&displayMode=paginated`} 
                 height="300"
                 ></iframe>
@@ -62,7 +79,7 @@ class ContentNFInteractive extends Component{
                 <iframe id={`answer-${this.content.id}`} className="nf-iframe nf-interactive-iframe" 
                 src={`https://noteflight.com/embed/${this.answerScoreCode}?scale=1&role=reader&displayMode=paginated`} 
                 height="1" width="1"
-                ></iframe>
+                ></iframe> */}
 
 
             </div>

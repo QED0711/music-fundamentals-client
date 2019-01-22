@@ -47,21 +47,20 @@ class ContentNFPlayer extends Component{
 
     componentDidMount(){
         window.NFClient.init(() => {
-            // const score = new this.NFClient.ScoreView(this.content.id, this.scoreCode, this.options)
+            // create the iframe with the NFClient ScoreView
+            const score = new this.NFClient.ScoreView(this.content.id, this.scoreCode, this.options)
+            // Get the new iframe element & add class names to it
             const frame = document.getElementById(this.content.id)
-            const score = new window.NFClient.ScoreView(frame)
-            frame.score = score
+            frame.classList.add("score-container")
+            frame.classList.add("nf-player-score")
+            // once the iframe loads its contents:
+                // add an event listener to the score to be notified with the score is ready for interaction
+                // Then, get the data from the score as XML
             frame.onload = () => {
-                console.log("LOADED")
+                console.log(`score-${this.content.id} Loaded`)
                 score.addEventListener("scoreDataLoaded", function(){
                     score.getMusicXML().done(data => console.log(data))
                 })
-                // score.addEventListener("selectionChange", async function(e){
-                //     score.getScore().done(data => console.log(data))
-                //     console.log("NEW SELECTION!!!")
-                    
-                // })
-                // debugger
             }
 
         })
@@ -77,8 +76,8 @@ class ContentNFPlayer extends Component{
         return (
             <div className="content-box content-nf-player">
                 {/* this div element below will be replaceed by a noteflight embeded score */}
-                {/* <iframe className="score-container" id={this.content.id}></iframe> */}
-                <iframe id={this.content.id} src="https://www.noteflight.com/embed/8120ed2061deda2fe59478e99dfcf3c4bccfb44c?scale=1&displayMode=paginated&role=reader"></iframe>
+                <div id={this.content.id}></div>
+                {/* <iframe id={this.content.id} src="https://www.noteflight.com/embed/8120ed2061deda2fe59478e99dfcf3c4bccfb44c?scale=1&displayMode=paginated&role=reader"></iframe> */}
             </div> 
         )
     }
