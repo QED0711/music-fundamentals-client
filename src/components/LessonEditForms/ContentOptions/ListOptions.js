@@ -61,7 +61,7 @@ class ListOptions extends Component {
                 {
                     !this.props.content && 
                     <div className="content-position">
-                        <label>Position (optional)</label>}
+                        <label>Position (optional)</label>
                         <br/>
                         <input id={this.props.content ? "edit-content-position" : "new-content-position"} type="number"/>
                     </div>

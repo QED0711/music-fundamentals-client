@@ -46,10 +46,10 @@ class ContentNFInteractive extends Component{
         return splitUrl[splitUrl.length - 1];
     }
 
-    setAnswer(answerXML){
-        console.log(answerXML)
+    setAnswer(answerData){
+        console.log(answerData)
         this.setState({
-            answerXML
+            answerData
         })
     }
 
@@ -57,21 +57,73 @@ class ContentNFInteractive extends Component{
         return false
     }
 
-    parseXML(data, parser){
-        let parsedData = parser.parseFromString(data, "text/xml");
+    parseXML(exerciseXML, parser){
+        let parsedData = parser.parseFromString(exerciseXML, "text/xml");
         parsedData = parsedData.getElementsByTagName("part")[0].getElementsByTagName("measure");
         return parsedData
     }
 
-    checkXML(exerciseXML, answerXML, exerciseScore){
-        for(let i = 0; i < answerXML.length; i++){
-            if(answerXML[i].innerHTML.toLowerCase() !== exerciseXML[i].innerHTML.toLowerCase()){
+    checkXML(exerciseXML, answerData, exerciseScore){
+        for(let i = 0; i < answerData.length; i++){
+            if(answerData[i].innerHTML.toLowerCase() !== exerciseXML[i].innerHTML.toLowerCase()){
               exerciseScore.selectMeasures(i, i+1);
               return
             } 
           }
           alert("CONGRADULATIONS!!! You Passed")        
     }
+
+    parseJSON(exerciseJSON){
+        let currentMeasure = -1;
+        let passed = [];
+        const traverseAnswers = (answerData, exerciseData, currentKey = 'staves') => {
+
+            if(passed.length) return
+            // if the passed in answerData is itself a string, number, etc. 
+            // Check for equality with exercise and deterine grade
+            if(typeof answerData !== 'object'){
+                if(answerData !== exerciseData){
+                    console.log("FAILED");
+                    passed.push([currentMeasure, false]);
+                    return                    
+                } else {
+                    return
+                }
+            }
+
+            if(typeof answerData[currentKey] !== 'object'){ 
+                if(!exerciseData || answerData[currentKey] !== exerciseData[currentKey]){
+                    console.log("FAILED");
+                    passed.push([currentMeasure, false]);
+                    return
+                }
+            }
+            
+            for(let newKey in answerData[currentKey]){
+                if(newKey === "noteSets") currentMeasure++;
+                if(answerData && exerciseData){
+                    traverseAnswers(answerData[currentKey], exerciseData[currentKey], newKey);
+                }
+            }
+        }
+
+        let answerJSON = this.state.answerData
+        traverseAnswers(answerJSON, exerciseJSON)
+        return passed 
+      }
+  
+      checkJSON(exerciseJSON, exerciseScore){
+        // parse and grade the exerciseJSON  
+        let graded = this.parseJSON(exerciseJSON);
+            // the graded array will only contain measures that are incorrect
+            // take the first measure that has an error, and select it in th exercise score
+            if(graded.length > 0){
+                exerciseScore.selectMeasures(graded[0][0], graded[0][0] + 1);
+            } else {
+                alert("You passed!");
+            }
+        
+      }
 
     componentDidMount(){
         // create the exercise and answer score iframes via the noteflight api
@@ -122,13 +174,15 @@ class ContentNFInteractive extends Component{
         const checkWorkButton = document.getElementById(`check-work-${this.content.id}`)
         checkWorkButton.onclick = (e) => {
             if(this.contentOptions.gradingMethod === "simple"){
-                console.log("SIMPLE GRADING LOGIC HERE")
+                exercise.getScore().done(data => {
+                    this.checkJSON(data, exercise)
+                })
             } else {
                 exercise.getMusicXML().done(data => {
                     let exerciseXML = this.parseXML(data, parser);
-                    let answerXML = this.state.answerXML
-                    // console.log({answerXML, exerciseXML})
-                    this.checkXML(exerciseXML, answerXML, exercise)
+                    let answerData = this.state.answerData
+                    // console.log({answerData, exerciseXML})
+                    this.checkXML(exerciseXML, answerData, exercise)
                 })
             }
         }

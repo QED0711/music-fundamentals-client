@@ -10,7 +10,7 @@ const NoteflightPlayerOptions = ({content}) => {
             {
                 !content && 
                 <div className="content-position">
-                    <label>Position (optional)</label>}
+                    <label>Position (optional)</label>
                     <br/>
                     <input id={content ? "edit-content-position" : "new-content-position"} type="number"/>
                 </div>
