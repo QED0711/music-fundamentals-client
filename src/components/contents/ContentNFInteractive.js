@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
 
+import parseOptionsString from '../../js/parseOptionsString';
+
 class ContentNFInteractive extends Component{
     constructor(props){
         super(props);
         const {content, stateMethods, options} = props
         this.content = content
+        
+        this.contentOptions = parseOptionsString(content.data[2])
         this.NFClient = stateMethods.NFClient;
         
         this.options = options;
@@ -61,7 +65,7 @@ class ContentNFInteractive extends Component{
 
     checkXML(exerciseXML, answerXML, exerciseScore){
         for(let i = 0; i < answerXML.length; i++){
-            if(answerXML[i].innerHTML !== exerciseXML[i].innerHTML){
+            if(answerXML[i].innerHTML.toLowerCase() !== exerciseXML[i].innerHTML.toLowerCase()){
               exerciseScore.selectMeasures(i, i+1);
               return
             } 
@@ -70,11 +74,10 @@ class ContentNFInteractive extends Component{
     }
 
     componentDidMount(){
-        // const score = new this.NFClient.ScoreView(this.content.id, this.exerciseScoreCode, this.options)
-        
+        // create the exercise and answer score iframes via the noteflight api
         const exercise = new this.NFClient.ScoreView(`exercise-${this.content.id}`, this.exerciseScoreCode, this.options.exercise);
         const answer = new this.NFClient.ScoreView(`answer-${this.content.id}`, this.answerScoreCode, this.options.answer);
-
+        // get the newly created iframe objects for later use
         const exerciseFrame = document.getElementById(`exercise-${this.content.id}`)
         const answerFrame = document.getElementById(`answer-${this.content.id}`)
 
@@ -85,11 +88,11 @@ class ContentNFInteractive extends Component{
         // declar a new DOMParser to use to check exercise vs answer scores
         let parser = new DOMParser();
 
+        // using the iframe objects from earlier, set their onload method to get the score data from each individual score
         exerciseFrame.onload = () => {
             console.log("Exercise Loaded")
             exercise.addEventListener("scoreDataLoaded", () => {
                 console.log("READY TO ACCEPT INTERACTIONS")
-                // exercise.getScore().done(data => console.log(data))
             })
         }
         
@@ -97,23 +100,37 @@ class ContentNFInteractive extends Component{
         answerFrame.onload = () => {
             console.log("Answer Loaded")
             answer.addEventListener("scoreDataLoaded", () => {
-                answer.getMusicXML().done(data => {
-                    let answerXML = this.parseXML(data, parser)
-                    this.setAnswer(answerXML)
-                    // delete answer iframe after its data has been saved to the component state
-                })
+                if(this.contentOptions.gradingMethod === "simple"){
+                    // if simple grading method, load score data as json like object (only checkes pitches & durations)
+                    answer.getScore().done(data => {
+                        let answerData = data;
+                        this.setAnswer(answerData)
+                    })
+                } else {
+                    // if detailed grading method, load score data as musicXML (checks for perfect match)
+                    answer.getMusicXML().done(data => {
+                        let answerData = this.parseXML(data, parser)
+                        this.setAnswer(answerData)
+                        // delete answer iframe after its data has been saved to the component state?
+                    })
+                }
             })
         }
 
+        // get the button element that the user presses to check their work
+        // when clicked, it should check the current exercise score data against the stored answer score data
         const checkWorkButton = document.getElementById(`check-work-${this.content.id}`)
-
         checkWorkButton.onclick = (e) => {
-            exercise.getMusicXML().done(data => {
-                let exerciseXML = this.parseXML(data, parser);
-                let answerXML = this.state.answerXML
-                // console.log({answerXML, exerciseXML})
-                this.checkXML(exerciseXML, answerXML, exercise)
-            })
+            if(this.contentOptions.gradingMethod === "simple"){
+                console.log("SIMPLE GRADING LOGIC HERE")
+            } else {
+                exercise.getMusicXML().done(data => {
+                    let exerciseXML = this.parseXML(data, parser);
+                    let answerXML = this.state.answerXML
+                    // console.log({answerXML, exerciseXML})
+                    this.checkXML(exerciseXML, answerXML, exercise)
+                })
+            }
         }
     }
 

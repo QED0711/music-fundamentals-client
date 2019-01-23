@@ -32,7 +32,16 @@ class NewContentForm extends Component {
         let position = userPosition !== "" ? parseInt(userPosition) : this.lesson.contents.length;
         if(position > this.lesson.contents.length) position = this.lesson.contents.length;
         
+        // Get content options (unique to each content type)
+        // Find all elements with className "new-content-options"
+        // Return each individual option as a string in the format <name>:<value> (key value pair in string form);
+        // join all option strings together. separated by commas
+        let options = [...document.getElementsByClassName("new-content-options")].map(x => {
+            return x.name + ":" + x.value;
+        }).join(",")
         
+        // add the options string to the end of the data array
+        data.push(options)
         return{
             type,
             data,

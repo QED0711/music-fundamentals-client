@@ -15,6 +15,10 @@ const ContentEditForm = ({content, stateMethods}) => {
 
     const getEditedData = () => {
         let editedData =  [...document.getElementsByClassName("edit-content-data")].map(x => x.value)
+        let editedOptions = [...document.getElementsByClassName("edit-content-options")].map(x => {
+            return x.name + ":" + x.value;
+        }).join(",")
+        editedData.push(editedOptions)
         // put further validations here as needed
         return editedData
     }

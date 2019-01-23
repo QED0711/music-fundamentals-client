@@ -1,5 +1,7 @@
 import React from 'react';
 
+import parseOptionsString from '../../../js/parseOptionsString';
+
 const NoteflightInteractiveOptions = ({content}) => {
 
     return(
@@ -9,6 +11,16 @@ const NoteflightInteractiveOptions = ({content}) => {
             <br/>
             <label>Noteflight Score Url (Answer Key)</label><br/>
             <input className={content ? "edit-content-data" : "new-content-data"} type="text" required defaultValue={content && content.data[1]} />
+            <br/>
+            <h5>Grading Method</h5>
+            <label>Grading Method</label><br/>
+            <select 
+                className={content ? "edit-content-options" : "new-content-options"} 
+                name="gradingMethod" 
+                defaultValue={content && parseOptionsString(content.data[2]).gradingMethod}>
+                    <option value="simple">Simple</option>
+                    <option value="detailed">Detailed</option>
+            </select>
             <br/>
 
             {
