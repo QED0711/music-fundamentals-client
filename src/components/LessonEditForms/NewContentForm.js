@@ -32,10 +32,16 @@ class NewContentForm extends PureComponent {
 
     getContentInfo = (preview = false) => {
         const type = document.getElementById("new-content-type").value
-        const data = [...document.getElementsByClassName("new-content-data")].map(x => {
+        let data = [...document.getElementsByClassName("new-content-data")].map(x => {
             return x.value !== "" ? x.value : null
         }).filter(x => x) // filter stacked on map here removes empty items (e.g. if you skip a list item)
         
+        // if we are dealing with a list, we remove the last auto generated item because it is empty
+        if((type === "bulletList" || type === "numberedList") && data[0]){
+            data = data[0].split("\n").filter(x => x !== "")
+            console.log(data)
+        }
+
         // get the user defined position of the new content element if given
         // if not given, or outside the range of elements, set to the default last position
         const userPosition = document.getElementById("new-content-position").value;

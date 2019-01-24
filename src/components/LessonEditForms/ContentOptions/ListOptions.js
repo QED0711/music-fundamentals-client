@@ -5,9 +5,10 @@ import React, {Component} from 'react';
 // ListItemInput Component
 
 const ListItemInput = ({newItem, data}) => {
+    // debugger
     return(
         <div>
-            <textarea className={data ? "edit-content-data" : "new-content-data"} defaultValue={data && (data || "")} onChange={newItem}></textarea>
+            <textarea className={typeof data === "string" ? "edit-content-data" : "new-content-data"} defaultValue={data && (data || "")}/*  onChange={newItem} */></textarea>
             <br/>
         </div>
     )
@@ -29,10 +30,11 @@ class ListOptions extends Component {
                 data = this.props.content.data[i]
                 listItems.push(<ListItemInput key={i} newItem={this.listItemCount} data={data}/>)
             }
+            // listItems.push(<ListItemInput key={listItems.length} newItem={this.listItemCount} data={""}/>)
         } else {
             listItems = [<ListItemInput key={0} newItem={this.listItemCount} />]
         } 
-        
+
         this.state = {
             listItems
         }
@@ -40,10 +42,12 @@ class ListOptions extends Component {
     }
 
     listItemCount(){
-        let items = [...document.getElementsByClassName("new-content-data")];
+        let className = this.props.content ? "edit-content-data" : "new-content-data";
+        let items = [...document.getElementsByClassName(className)];
+
         if(items[items.length - 1].value !== ""){
             let listItems = [...this.state.listItems]
-            listItems.push(<ListItemInput key={this.state.listItems.length + 1} newItem={this.listItemCount} />)
+            listItems.push(<ListItemInput key={this.state.listItems.length + 1} newItem={this.listItemCount} data={items[items.length - 1].value}/>)
             this.setState({
                 listItems
             })
