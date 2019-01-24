@@ -43,3 +43,10 @@ iframe{
 .nf-answer-score{
   display: none;
 }
+
+#content-preview{
+  border: 1px solid black;
+  box-shadow: 2px 2px 10px grey;
+  width: 90%;
+  margin: 0 auto;
+}

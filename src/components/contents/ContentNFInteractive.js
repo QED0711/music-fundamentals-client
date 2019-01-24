@@ -8,7 +8,9 @@ class ContentNFInteractive extends Component{
         const {content, stateMethods, options} = props
         this.content = content
         
-        this.contentOptions = parseOptionsString(content.data[2])
+        if(!this.content.id) this.content.id = "PREVIEW"
+
+        this.contentOptions = parseOptionsString(content.data[content.data.length - 1])
         this.NFClient = stateMethods.NFClient;
         
         this.options = options;

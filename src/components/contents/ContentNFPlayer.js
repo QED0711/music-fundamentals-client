@@ -5,6 +5,11 @@ class ContentNFPlayer extends Component{
         super(props);
         const {content, stateMethods, options} = props
         this.content = content
+        
+        // if the content data that is passed is just a preview, it will not have an id
+        // becuase NF scores need to render based on id, set temporary id of PREVIEW 
+        if(!this.content.id) this.content.id = "PREVIEW"
+    
         this.NFClient = stateMethods.NFClient;
         
         this.options = options;
@@ -28,7 +33,7 @@ class ContentNFPlayer extends Component{
 
         this.setPlayerScore = this.setPlayerScore.bind(this);
 
-        console.log("RENDERED")
+        console.log("RENDERED CONTENT_NF_PLAYER")
     }
     
     setPlayerScore(score){

@@ -1,11 +1,11 @@
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 
 import {Mutation} from 'react-apollo';
 import {CREATE_NEW_CONTENT} from '../../queries/mutations';
 
 import contentEditOptions from '../../js/contentEditOptions'
 
-class NewContentForm extends Component {
+class NewContentForm extends PureComponent {
 
     constructor(props){
         super(props);
@@ -14,13 +14,23 @@ class NewContentForm extends Component {
         }
 
         this.lesson = this.props.lesson
+        this.contents = this.props.contents
         this.appendContent = this.props.stateMethods.appendContent;
 
         this.setContentType = this.setContentType.bind(this);
+
+        this.setContentPreview = this.props.setContentPreview;
+        this.clearContentPreview = this.props.clearContentPreview;
     }
 
 
-    getContentInfo = () => {
+    componentDidMount(){
+        // setInterval(() => {
+        //     this.setContentPreview(this.getContentInfo())
+        // }, 250)
+    }
+
+    getContentInfo = (preview = false) => {
         const type = document.getElementById("new-content-type").value
         const data = [...document.getElementsByClassName("new-content-data")].map(x => {
             return x.value !== "" ? x.value : null
@@ -29,9 +39,9 @@ class NewContentForm extends Component {
         // get the user defined position of the new content element if given
         // if not given, or outside the range of elements, set to the default last position
         const userPosition = document.getElementById("new-content-position").value;
-        let position = userPosition !== "" ? parseInt(userPosition) : this.lesson.contents.length;
-        if(position > this.lesson.contents.length) position = this.lesson.contents.length;
-        
+        let position = userPosition !== "" ? parseInt(userPosition) : this.contents.length;
+        if(position > this.contents.length) position = this.contents.length;
+
         // Get content options (unique to each content type)
         // Find all elements with className "new-content-options"
         // Return each individual option as a string in the format <name>:<value> (key value pair in string form);
@@ -70,9 +80,14 @@ class NewContentForm extends Component {
             
                             <form id="new-content-form" onSubmit={ e => {
                                 e.preventDefault();    
+                                this.clearContentPreview();
                                 const contentInfo = this.getContentInfo();
                                 createContent({variables: contentInfo});
                                 }
+                            }
+                            onChange={ e => {
+                                this.setContentPreview(this.getContentInfo(true));
+                            }
                             }
                             >
                                 <h3>Create New Content</h3>
@@ -92,7 +107,7 @@ class NewContentForm extends Component {
                                 {contentEditOptions(this.state.contentType)}
                                 <br/>
                                 <input type="submit" value="Save Changes"/>
-                                
+
                             </form>
     
                         ) 

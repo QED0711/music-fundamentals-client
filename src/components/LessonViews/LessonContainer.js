@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 
 import {Query} from 'react-apollo';
 import {GET_LESSON_CONTENTS} from "../../queries/queries";
@@ -8,54 +8,98 @@ import contentRenderer from '../../js/contentRenderer';
 import LessonEditBanner from './LessonEditBanner';
 import NewContentForm from '../LessonEditForms/NewContentForm';
 import ContentCard from '../ContentCard';
+import ContentPreview from '../LessonEditForms/ContentPreview';
 
-const LessonContainer = (props) => {
-    let lesson = props.state.currentLesson
-    let lessonID = props.match.params.id
-    let {setCurrentLessonContents} = props.stateMethods
+class LessonContainer extends PureComponent {
+
+    constructor(props){
+        super(props);
+
+        this.lesson = this.props.state.currentLesson
+        this.lessonID = this.props.match.params.id
+        this.setCurrentLessonContents = this.props.stateMethods.setCurrentLessonContents;
+
+        this.state = {
+            contentPreview : null
+        }
+
+        this.setContentPreview = this.setContentPreview.bind(this);
+        this.clearContentPreview = this.clearContentPreview.bind(this);
+    }
+    
+    setContentPreview(content){
+        this.setState({
+            contentPreview : content
+        })
+    }
    
-    const contentMapper = (contents) => {
+    clearContentPreview(){
+        this.setState({contentPreview : null});
+    }
+
+    contentMapper(contents){
         contents = contents.sort((c1,c2) => c1.position - c2.position);
         return contents.map((content, index) => {
-            return <ContentCard key={index} content={content} lesson={lesson} state={props.state} stateMethods={props.stateMethods}/>
+            return <ContentCard key={index} content={content} lesson={this.lesson} state={this.props.state} stateMethods={this.props.stateMethods}/>
         })
     }
 
-    return(
-        <div id="lesson-display-box">
-            <h2>{lesson.title}</h2>
-            <h4>{lesson.description}</h4>
-
-            <Query query={GET_LESSON_CONTENTS} variables={{id: lessonID}}>
-            {
-                ({data, refetch, loading}) => {
-                    if(loading) return <h4>loading...</h4>
-                    let contents = data.lesson.contents
-                    refetch()
-                    {
-                        !props.state.currentLesson.contents 
-                        &&
-                        setCurrentLessonContents(contents)
+    render(){
+        return(
+            <div id="lesson-display-box">
+                <h2>{this.lesson.title}</h2>
+                <h4>{this.lesson.description}</h4>
+    
+                <Query query={GET_LESSON_CONTENTS} variables={{id: this.lessonID}}>
+                {
+                    ({data, refetch, loading}) => {
+                        if(loading) return <h4>loading...</h4>
+                        let contents = data.lesson.contents
+                        // bug with refetch: 
+                        // trigered if contentPreview updated too often.
+                        // therefore, now only triggers if content preview does not exist
+                        // e.g. the user submited the content, therefore clearing the preview
+                        if(!this.state.contentPreview){
+                            refetch()
+                        }
+                        {
+                            !this.props.state.currentLesson.contents 
+                            &&
+                            this.setCurrentLessonContents(contents)
+                        }
+                        return(
+                            <div>
+                                {
+                                    this.props.state.currentUser.id === this.lesson.instructorId 
+                                    && 
+                                    <div>
+                                        <LessonEditBanner lesson={this.lesson} state={this.props.state}/>
+                                        <NewContentForm 
+                                            lesson={this.lesson} 
+                                            contents={contents}
+                                            state={this.props.state} 
+                                            stateMethods={this.props.stateMethods} 
+                                            setContentPreview={this.setContentPreview}
+                                            clearContentPreview={this.clearContentPreview} 
+                                        />
+                                    </div>
+                                }
+                                {
+                                    (this.state.contentPreview && this.state.contentPreview.data[0] !== "") 
+                                    && 
+                                    <ContentPreview content={this.state.contentPreview} stateMethods={this.props.stateMethods}/> 
+                                }
+                                {this.contentMapper(contents)}
+                            </div>
+                        )
                     }
-                    return(
-                        <div>
-                            {
-                                props.state.currentUser.id === lesson.instructorId 
-                                && 
-                                <div>
-                                    <LessonEditBanner lesson={lesson} state={props.state}/>
-                                    <NewContentForm lesson={lesson} state={props.state} stateMethods={props.stateMethods} />
-                                </div>
-                            }
-                            {contentMapper(contents)}
-                        </div>
-                    )
                 }
-            }
-            </Query>
+                </Query>
+    
+            </div>
+        )
+    }
 
-        </div>
-    )
 
 }
 
