@@ -3,7 +3,7 @@ import React from 'react';
 const DefaultContentOptions = ({content}) => {
 
     return(
-        <div id="content-edit-options">
+        <div id="content-options">
             <label>Text</label><br/>
             <textarea className={content ? "edit-content-data" : "new-content-data"} required defaultValue={content && content.data[0]}></textarea>
             <br/>

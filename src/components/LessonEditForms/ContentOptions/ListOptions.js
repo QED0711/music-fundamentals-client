@@ -54,7 +54,7 @@ class ListOptions extends Component {
 
     render(){
         return(
-            <div id="content-edit-options">
+            <div id="content-options">
                 <label>text</label><br/>
                 {this.state.listItems}
                 <br/>

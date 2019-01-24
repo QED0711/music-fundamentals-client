@@ -5,7 +5,7 @@ import parseOptionsString from '../../../js/parseOptionsString';
 const NoteflightInteractiveOptions = ({content}) => {
 
     return(
-        <div id="content-edit-options">
+        <div id="content-options">
             <label>Noteflight Score Url (Assignment)</label><br/>
             <input className={content ? "edit-content-data" : "new-content-data"} type="text" required defaultValue={content && content.data[0]} />
             <br/>

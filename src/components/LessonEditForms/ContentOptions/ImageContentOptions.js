@@ -3,7 +3,7 @@ import React from 'react';
 const ImageContentOptions = ({content}) => {
 
     return(
-        <div id="content-edit-options">
+        <div id="content-options">
             <label>Image Url</label><br/>
             <input className={content ? "edit-content-data" : "new-content-data"} type="text" required defaultValue={content && (content.data[0] || "")}/>
             <br/>
