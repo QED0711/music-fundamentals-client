@@ -32,15 +32,17 @@ const LessonEditBanner = (props) => {
                             <button id="lesson-publish-button" className={lesson.published ? "button-published" : "button-unpublished" } 
                                 onClick={
                                 (e) => {
-                                    toggleLessonPublish({variables: {id: lesson.id}})                                    
+                                    toggleLessonPublish({variables: {id: lesson.id}})                               
                                 }
                             }>{lesson.published ? "Unpublish" : "Publish"}</button>
                             <button>Edit Lesson Info</button>
                             <button>Delete</button>
                             <button onClick={ e => {
+                                let text = e.target.innerText;
+                                e.target.innerText = text === "Student View" ? "Instructor View" : "Student View"
                                 props.stateMethods.toggleStudentView();
                             }}
-                            >Toggle Student View</button>
+                            >Student View</button>
 
                         </div>
                     )

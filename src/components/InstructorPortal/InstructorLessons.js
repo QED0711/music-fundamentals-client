@@ -9,14 +9,18 @@ import redirectToCurrentLesson from '../../js/redirectToCurrentLesson';
 
 const InstructorLessons = (props) => {
     const currentUser = props.state.currentUser
-    console.log("CURRENT USER: ", currentUser)
     
     if(!currentUser.signedIn){    
         return(
             <Redirect to="/instructor/login" />
         )
     }
-
+   
+    // if the instructor's id is currently prepended with STUDENT-VIEW-, remove it, and redirect to the normal instructor lesson page
+    if(currentUser.id.match("STUDENT-VIEW-")){
+        props.stateMethods.toggleStudentView();
+        return <Redirect to={`/instructors/${currentUser.id.split("STUDENT-VIEW-")[1]}/lessons`} />
+    }
 
 
     return(

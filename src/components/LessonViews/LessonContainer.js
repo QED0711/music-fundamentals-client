@@ -70,8 +70,10 @@ class LessonContainer extends PureComponent {
                         return(
                             <div>
                                 {
+                                    // check to see if this lessons is structor is the current signed in user
                                     (this.props.state.currentUser.id === this.lesson.instructorId  
                                     || 
+                                    // check to see if student view is active, and allow if id matches
                                     (this.props.state.currentUser.id && this.props.state.currentUser.id.split("STUDENT-VIEW-")[1] === this.lesson.instructorId)) 
                                     && 
                                     <LessonEditBanner lesson={this.lesson} state={this.props.state} stateMethods={this.props.stateMethods}/>
