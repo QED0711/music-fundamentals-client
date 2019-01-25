@@ -74,7 +74,7 @@ class ContentNFInteractive extends Component{
               return
             } 
           }
-          alert("CONGRADULATIONS!!! You Passed")        
+          document.getElementById(`nf-interactive-${this.content.id}`).classList.add("nf-interactive-passed");     
     }
 
     parseJSON(exerciseJSON){
@@ -124,7 +124,7 @@ class ContentNFInteractive extends Component{
             if(graded.length > 0){
                 exerciseScore.selectMeasures(graded[0][0], graded[0][0] + 1);
             } else {
-                alert("You passed!");
+                document.getElementById(`nf-interactive-${this.content.id}`).classList.add("nf-interactive-passed");
             }
         
       }
@@ -137,6 +137,15 @@ class ContentNFInteractive extends Component{
         const exerciseFrame = document.getElementById(`exercise-${this.content.id}`)
         const answerFrame = document.getElementById(`answer-${this.content.id}`)
 
+        // interactive buttons
+        const checkWorkButton = document.getElementById(`check-work-${this.content.id}`);
+        const playAnswerButton = document.getElementById(`play-answer-${this.content.id}`);
+        const activateButtons = () => {
+            checkWorkButton.innerHTML = "Check Your Work"
+            checkWorkButton.disabled = false;
+            playAnswerButton.innerHTML = "Play Dictation Excerpt";
+            playAnswerButton.disabled = false;
+        }
         // add class names here
         exerciseFrame.className = "score-container nf-exercise-score nf-interactive"
         answerFrame.className = "score-container nf-answer-score nf-interactive"
@@ -148,7 +157,7 @@ class ContentNFInteractive extends Component{
         exerciseFrame.onload = () => {
             console.log("Exercise Loaded")
             exercise.addEventListener("scoreDataLoaded", () => {
-                console.log("READY TO ACCEPT INTERACTIONS")
+                console.log("Exercise Score Loaded");
             })
         }
         
@@ -161,12 +170,15 @@ class ContentNFInteractive extends Component{
                     answer.getScore().done(data => {
                         let answerData = data;
                         this.setAnswer(answerData)
+                        activateButtons();
                     })
                 } else {
                     // if detailed grading method, load score data as musicXML (checks for perfect match)
                     answer.getMusicXML().done(data => {
                         let answerData = this.parseXML(data, parser)
                         this.setAnswer(answerData)
+                        checkWorkButton.disabled = false;
+                        activateButtons();
                         // delete answer iframe after its data has been saved to the component state?
                     })
                 }
@@ -175,7 +187,6 @@ class ContentNFInteractive extends Component{
 
         // get the button element that the user presses to check their work
         // when clicked, it should check the current exercise score data against the stored answer score data
-        const checkWorkButton = document.getElementById(`check-work-${this.content.id}`)
         checkWorkButton.onclick = (e) => {
             if(this.contentOptions.gradingMethod === "simple"){
                 exercise.getScore().done(data => {
@@ -190,10 +201,9 @@ class ContentNFInteractive extends Component{
                 })
             }
         }
+
         // If assingmentType is a dictation, we need to allow for the user to play the dictation example
-        // find the playbutton element, and add an onclick method to tell the answerScore to play itself.
         if(this.contentOptions.assignmentType === "dictation"){
-            const playAnswerButton = document.getElementById(`play-answer-${this.content.id}`);
             playAnswerButton.onclick = (e) => {
                 answer.playFromSelection(0);
             }
@@ -204,18 +214,20 @@ class ContentNFInteractive extends Component{
 
     render(){
         return (
-            <div className="content-box content-nf-player">
+            <div id={`nf-interactive-${this.content.id}`} className="content-box content-nf-player">
+                <h6>Assignment Type: {this.contentOptions.assignmentType}</h6>
+                <h6>Grading Method: {this.contentOptions.gradingMethod}</h6>
                 {
                     this.contentOptions.assignmentType === "dictation" 
                     &&
-                    <button id={`play-answer-${this.content.id}`}>Play Example</button>
+                    <button id={`play-answer-${this.content.id}`} disabled>Loading Dictation...</button>
                 }
                 <br/>
                 {/* this div element below will be replaceed by a noteflight embeded score */}
                 <div id={`exercise-${this.content.id}`}></div>
                 <div id={`answer-${this.content.id}`}></div>
                 <br/>
-                <button id={`check-work-${this.content.id}`}>Check Your Work</button>
+                <button id={`check-work-${this.content.id}`} disabled>Loading Exercise...</button>
 
             </div>
         )

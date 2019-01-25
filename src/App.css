@@ -50,3 +50,10 @@ iframe{
   width: 90%;
   margin: 0 auto;
 }
+
+.nf-interactive-passed{
+  border-radius: 8px;
+  box-shadow: 4px 0 30px rgb(12, 204, 12);
+  width: 95%;
+  margin: 0 auto;
+}
