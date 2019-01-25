@@ -105,9 +105,7 @@ class NewContentForm extends PureComponent {
                                     <option value="image">Image</option>
                                     <option value="nfPlayer">Noteflight Score</option>
                                     <option value="nfInteractive">Interactive Noteflight Score</option>
-                                    <option value="iframe">Embeded iframe</option>
-                                    <option value="bulletList">Bullet Point List</option>
-                                    <option value="numberedList">Numbered List</option>
+                                    <option value="list">List</option>
                                 </select><br/>
     
                                 {contentEditOptions(this.state.contentType)}

@@ -14,9 +14,11 @@ const contentEditOptions = (type) => {
             return <NoteflightPlayerOptions />
         case("nfInteractive"):
             return <NoteflightInteractiveOptions />
-        case("bulletList"):
-            return <ListOptions />
-        case("numberedList"):
+        // case("bulletList"):
+        //     return <ListOptions />
+        // case("numberedList"):
+        //     return <ListOptions />
+        case("list"):
             return <ListOptions />
         default:
             return <DefaultContentOptions />

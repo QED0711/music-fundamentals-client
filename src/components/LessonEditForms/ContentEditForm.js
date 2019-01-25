@@ -47,9 +47,7 @@ const ContentEditForm = ({content, stateMethods}) => {
 
                             {content.type === 'image' && <ImageContentOptions content={content}/>}
                             
-                            {content.type === 'bulletList' && <ListOptions content={content} />}
-                            {content.type === 'numberedList' && <ListOptions content={content} />}
-
+                            {content.type === 'list' && <ListOptions content={content} />}
 
                             <input type="submit" value="Save Changes" />
                         </form>

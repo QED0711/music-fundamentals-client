@@ -1,81 +1,40 @@
-import React, {Component} from 'react';
+import React from 'react';
 
+import parseOptionsString from '../../../js/parseOptionsString'
 
-
-// ListItemInput Component
-
-const ListItemInput = ({newItem, data}) => {
-    // debugger
+const ListOptions = ({content}) => {
+    
     return(
-        <div>
-            <textarea className={typeof data === "string" ? "edit-content-data" : "new-content-data"} defaultValue={data && (data || "")}/*  onChange={newItem} */></textarea>
+        <div id="content-options">
+            <label>text</label><br/>
+            <textarea className={content ? "edit-content-data" : "new-content-data"} required defaultValue={content ? content.data[0] : ""}></textarea>
             <br/>
+
+            <label>List Type</label><br/>
+            <select 
+                className={content ? "edit-content-options" : "new-content-options"} 
+                name="listType"
+                defaultValue={content && parseOptionsString(content.data[content.data.length - 1]).listType}>                
+                >
+                <option value="bullet">Bullet Point</option>
+                <option value="numbered">Numbered</option>
+            </select>
+            {
+                !content && 
+                <div className="content-position">
+                    <label>Position (optional)</label>
+                    <br/>
+                    <input id={content ? "edit-content-position" : "new-content-position"} type="number"/>
+                </div>
+            }
+
         </div>
     )
-
+    
 }
 
 
 
-class ListOptions extends Component {
-    constructor(props){
-        super(props);
 
-        this.listItemCount = this.listItemCount.bind(this);
-        
-        let listItems = []
-        if(this.props.content){
-            let data
-            for(let i = 0; i < this.props.content.data.length; i++){
-                data = this.props.content.data[i]
-                listItems.push(<ListItemInput key={i} newItem={this.listItemCount} data={data}/>)
-            }
-            // listItems.push(<ListItemInput key={listItems.length} newItem={this.listItemCount} data={""}/>)
-        } else {
-            listItems = [<ListItemInput key={0} newItem={this.listItemCount} />]
-        } 
-
-        this.state = {
-            listItems
-        }
-
-    }
-
-    listItemCount(){
-        let className = this.props.content ? "edit-content-data" : "new-content-data";
-        let items = [...document.getElementsByClassName(className)];
-
-        if(items[items.length - 1].value !== ""){
-            let listItems = [...this.state.listItems]
-            listItems.push(<ListItemInput key={this.state.listItems.length + 1} newItem={this.listItemCount} data={items[items.length - 1].value}/>)
-            this.setState({
-                listItems
-            })
-
-        }
-    }
-
-
-    render(){
-        return(
-            <div id="content-options">
-                <label>text</label><br/>
-                {this.state.listItems}
-                <br/>
-                {
-                    !this.props.content && 
-                    <div className="content-position">
-                        <label>Position (optional)</label>
-                        <br/>
-                        <input id={this.props.content ? "edit-content-position" : "new-content-position"} type="number"/>
-                    </div>
-                }
-                {/* <label>Position (optional)</label><br/>
-                <input id={this.props.content ? "edit-content-position" : "new-content-position"} type="number"/> */}
-            </div>
-        )
-    }
-
-}
 
 export default ListOptions;

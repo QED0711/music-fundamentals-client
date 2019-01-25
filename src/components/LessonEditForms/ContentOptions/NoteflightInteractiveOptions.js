@@ -16,7 +16,7 @@ const NoteflightInteractiveOptions = ({content}) => {
             <select 
                 className={content ? "edit-content-options" : "new-content-options"} 
                 name="gradingMethod" 
-                defaultValue={content && parseOptionsString(content.data[2]).gradingMethod}>
+                defaultValue={content && parseOptionsString(content.data[content.data.length - 1]).gradingMethod}>
                     <option value="simple">Simple</option>
                     <option value="detailed">Detailed</option>
             </select>
