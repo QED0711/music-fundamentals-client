@@ -41,6 +41,8 @@ class ContentNFInteractive extends Component{
         this.state = {answer: null};
 
         this.setAnswer = this.setAnswer.bind(this);
+
+        console.log("NF_INTERACTIVE: ", this)
     }
 
     parseNFUrl(url){
@@ -188,6 +190,14 @@ class ContentNFInteractive extends Component{
                 })
             }
         }
+        // If assingmentType is a dictation, we need to allow for the user to play the dictation example
+        // find the playbutton element, and add an onclick method to tell the answerScore to play itself.
+        if(this.contentOptions.assignmentType === "dictation"){
+            const playAnswerButton = document.getElementById(`play-answer-${this.content.id}`);
+            playAnswerButton.onclick = (e) => {
+                answer.playFromSelection(0);
+            }
+        }
     }
 
 
@@ -195,6 +205,12 @@ class ContentNFInteractive extends Component{
     render(){
         return (
             <div className="content-box content-nf-player">
+                {
+                    this.contentOptions.assignmentType === "dictation" 
+                    &&
+                    <button id={`play-answer-${this.content.id}`}>Play Example</button>
+                }
+                <br/>
                 {/* this div element below will be replaceed by a noteflight embeded score */}
                 <div id={`exercise-${this.content.id}`}></div>
                 <div id={`answer-${this.content.id}`}></div>
