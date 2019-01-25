@@ -9,7 +9,7 @@ const LessonEditBanner = (props) => {
     const lesson = props.lesson
     const currentUser = props.state.currentUser;
 
-    if(!currentUser.signedIn || lesson.instructorId !== currentUser.id){
+    if(!currentUser.signedIn || (lesson.instructorId !== currentUser.id && lesson.instructorId !== currentUser.id.split("STUDENT-VIEW-")[1])){
         return <Redirect to="/"/>
     }
 
@@ -35,7 +35,12 @@ const LessonEditBanner = (props) => {
                                     toggleLessonPublish({variables: {id: lesson.id}})                                    
                                 }
                             }>{lesson.published ? "Unpublish" : "Publish"}</button>
+                            <button>Edit Lesson Info</button>
                             <button>Delete</button>
+                            <button onClick={ e => {
+                                props.stateMethods.toggleStudentView();
+                            }}
+                            >Toggle Student View</button>
 
                         </div>
                     )

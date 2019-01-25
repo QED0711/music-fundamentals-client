@@ -50,6 +50,7 @@ class App extends Component {
     this.appendContent = this.appendContent.bind(this);
     this.removeDeletedContent = this.removeDeletedContent.bind(this);
     this.setPlayerScores = this.setPlayerScores.bind(this);
+    this.toggleStudentView = this.toggleStudentView.bind(this);
     
     this.stateMethods = {}
     for(let item in this){
@@ -86,6 +87,18 @@ class App extends Component {
       })
       
     }
+  }
+
+  toggleStudentView(){
+    let currentUser = Object.assign({}, this.state.currentUser);
+    if(currentUser.id.match("STUDENT-VIEW-")){
+      currentUser.id = currentUser.id.split("STUDENT-VIEW-")[1]
+    } else {
+      currentUser.id = "STUDENT-VIEW-" + currentUser.id;
+    }
+    this.setState({
+      currentUser
+    })
   }
 
   setCurrentLesson(currentLesson){

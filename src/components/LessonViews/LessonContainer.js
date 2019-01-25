@@ -70,19 +70,23 @@ class LessonContainer extends PureComponent {
                         return(
                             <div>
                                 {
-                                    this.props.state.currentUser.id === this.lesson.instructorId 
+                                    (this.props.state.currentUser.id === this.lesson.instructorId  
+                                    || 
+                                    (this.props.state.currentUser.id && this.props.state.currentUser.id.split("STUDENT-VIEW-")[1] === this.lesson.instructorId)) 
                                     && 
-                                    <div>
-                                        <LessonEditBanner lesson={this.lesson} state={this.props.state}/>
-                                        <NewContentForm 
-                                            lesson={this.lesson} 
-                                            contents={contents}
-                                            state={this.props.state} 
-                                            stateMethods={this.props.stateMethods} 
-                                            setContentPreview={this.setContentPreview}
-                                            clearContentPreview={this.clearContentPreview} 
-                                        />
-                                    </div>
+                                    <LessonEditBanner lesson={this.lesson} state={this.props.state} stateMethods={this.props.stateMethods}/>
+                                }
+                                {
+                                    this.props.state.currentUser.id === this.lesson.instructorId  
+                                    &&
+                                    <NewContentForm 
+                                        lesson={this.lesson} 
+                                        contents={contents}
+                                        state={this.props.state} 
+                                        stateMethods={this.props.stateMethods} 
+                                        setContentPreview={this.setContentPreview}
+                                        clearContentPreview={this.clearContentPreview} 
+                                    />
                                 }
                                 {
                                     (this.state.contentPreview && this.state.contentPreview.data[0] !== "") 
