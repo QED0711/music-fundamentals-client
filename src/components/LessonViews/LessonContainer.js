@@ -3,6 +3,8 @@ import React, {PureComponent} from 'react';
 import {Query} from 'react-apollo';
 import {GET_LESSON_CONTENTS} from "../../queries/queries";
 
+import {Redirect} from 'react-router-dom';
+
 import contentRenderer from '../../js/contentRenderer';
 
 import LessonEditBanner from './LessonEditBanner';
@@ -45,6 +47,9 @@ class LessonContainer extends PureComponent {
     }
 
     render(){
+        if(!this.lesson.id){
+            return <Redirect to="/lessons"/>
+        }
         return(
             <div id="lesson-display-box">
                 <h2>{this.lesson.title}</h2>
@@ -56,7 +61,7 @@ class LessonContainer extends PureComponent {
                         if(loading) return <h4>loading...</h4>
                         let contents = data.lesson.contents
                         // bug with refetch: 
-                        // trigered if contentPreview updated too often.
+                        // triggered if contentPreview updated too often.
                         // therefore, now only triggers if content preview does not exist
                         // e.g. the user submited the content, therefore clearing the preview
                         if(!this.state.contentPreview){

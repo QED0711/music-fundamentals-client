@@ -36,6 +36,18 @@ const CHANGE_LESSON_PUBLISH_STATE = gql`
     }
 `
 
+const DELETE_LESSON = gql`
+    mutation deleteLesson($id: ID!){
+        deleteLesson(id: $id){
+            id
+            instructorId
+            title
+            description
+            tags
+        }
+    }
+`
+
 const CREATE_NEW_CONTENT = gql`
     mutation createContent($lessonId: ID!, $type: String!, $data: [String!]!, $position: Int!){
         createContent(
@@ -98,6 +110,7 @@ const UPDATE_CONTENT = gql`
 export {
     CREATE_NEW_LESSON,
     CHANGE_LESSON_PUBLISH_STATE,
+    DELETE_LESSON,
     CREATE_NEW_CONTENT,
     DELETE_CONTENT,
     REMOVE_AND_REORDER_CONTENTS,

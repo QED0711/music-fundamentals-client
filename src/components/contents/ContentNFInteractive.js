@@ -143,8 +143,10 @@ class ContentNFInteractive extends Component{
         const activateButtons = () => {
             checkWorkButton.innerHTML = "Check Your Work"
             checkWorkButton.disabled = false;
-            playAnswerButton.innerHTML = "Play Dictation Excerpt";
-            playAnswerButton.disabled = false;
+            if(playAnswerButton){
+                playAnswerButton.innerHTML = "Play Dictation Excerpt";
+                playAnswerButton.disabled = false;
+            }
         }
         // add class names here
         exerciseFrame.className = "score-container nf-exercise-score nf-interactive"

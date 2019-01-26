@@ -5,6 +5,8 @@ import {Link, Redirect} from 'react-router-dom'
 import {Mutation} from 'react-apollo';
 import {CHANGE_LESSON_PUBLISH_STATE} from '../../queries/mutations';
 
+import DeleteLessonButton from './DeleteLessonButton'
+
 const LessonEditBanner = (props) => {
     const lesson = props.lesson
     const currentUser = props.state.currentUser;
@@ -36,7 +38,7 @@ const LessonEditBanner = (props) => {
                                 }
                             }>{lesson.published ? "Unpublish" : "Publish"}</button>
                             <button>Edit Lesson Info</button>
-                            <button>Delete</button>
+                            <DeleteLessonButton lesson={lesson} stateMethods={props.stateMethods}/>
                             <button onClick={ e => {
                                 let text = e.target.innerText;
                                 e.target.innerText = text === "Student View" ? "Instructor View" : "Student View"

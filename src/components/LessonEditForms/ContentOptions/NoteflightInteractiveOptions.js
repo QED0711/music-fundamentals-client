@@ -3,7 +3,6 @@ import React from 'react';
 import parseOptionsString from '../../../js/parseOptionsString';
 
 const NoteflightInteractiveOptions = ({content}) => {
-
     return(
         <div id="content-options">
             <label>Noteflight Score Url (Assignment)</label><br/>
