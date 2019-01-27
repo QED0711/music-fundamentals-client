@@ -53,8 +53,8 @@ class LessonContainer extends Component {
         }
         return(
             <div id="lesson-display-box">
-                <h2>{this.lesson.title}</h2>
-                <h4>{this.lesson.description}</h4>
+                <h2>{this.props.state.currentLesson.title}</h2>
+                <h4>{this.props.state.currentLesson.description}</h4>
     
                 <Query query={GET_LESSON_CONTENTS} variables={{id: this.lessonID}}>
                 {

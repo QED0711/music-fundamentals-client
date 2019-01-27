@@ -28,10 +28,8 @@ const EditLessonForm = ({lesson, stateMethods, toggleEditMode}) => {
             {
                 (editLesson, {data}) => {
                     if(data){
-
                         stateMethods.updateAfterLessonEdits(data.editLesson)
-                        return <Redirect to={`/`}/>
-                        // toggleEditMode();
+                        toggleEditMode();
                     }
 
                     return(
