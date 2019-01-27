@@ -11,7 +11,7 @@ const NewLessonForm = (props) => {
         let title = document.getElementById("new-lesson-title").value
         let description = document.getElementById("new-lesson-description").value
         let type = document.getElementById("new-lesson-type").value
-        let tags = document.getElementById("new-lesson-tags").value.split(",")
+        let tags = document.getElementById("new-lesson-tags").value.split(",").map(x => x.trim())
         
         return{
             instructorId,

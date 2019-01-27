@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 
 import {Query} from 'react-apollo';
 import {GET_LESSON_CONTENTS} from "../../queries/queries";
@@ -12,7 +12,7 @@ import NewContentForm from '../LessonEditForms/NewContentForm';
 import ContentCard from '../ContentCard';
 import ContentPreview from '../LessonEditForms/ContentPreview';
 
-class LessonContainer extends PureComponent {
+class LessonContainer extends Component {
 
     constructor(props){
         super(props);
@@ -27,8 +27,9 @@ class LessonContainer extends PureComponent {
 
         this.setContentPreview = this.setContentPreview.bind(this);
         this.clearContentPreview = this.clearContentPreview.bind(this);
+
     }
-    
+
     setContentPreview(content){
         this.setState({
             contentPreview : content

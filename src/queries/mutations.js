@@ -48,6 +48,24 @@ const DELETE_LESSON = gql`
     }
 `
 
+const EDIT_LESSON_INFO = gql`
+    mutation editLesson($id: ID!, $type: String!, $title: String!, $description: String!, $tags: [String]!){
+        editLesson(
+            id: $id,
+            type: $type,
+            title: $title,
+            description: $description,
+            tags: $tags,
+        ){
+            id
+            type
+            title
+            description
+            tags
+        }
+    }
+`
+
 const CREATE_NEW_CONTENT = gql`
     mutation createContent($lessonId: ID!, $type: String!, $data: [String!]!, $position: Int!){
         createContent(
@@ -111,6 +129,7 @@ export {
     CREATE_NEW_LESSON,
     CHANGE_LESSON_PUBLISH_STATE,
     DELETE_LESSON,
+    EDIT_LESSON_INFO,
     CREATE_NEW_CONTENT,
     DELETE_CONTENT,
     REMOVE_AND_REORDER_CONTENTS,

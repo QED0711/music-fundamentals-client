@@ -51,6 +51,7 @@ class App extends Component {
     this.removeDeletedContent = this.removeDeletedContent.bind(this);
     this.setPlayerScores = this.setPlayerScores.bind(this);
     this.toggleStudentView = this.toggleStudentView.bind(this);
+    this.updateAfterLessonEdits = this.updateAfterLessonEdits.bind(this);
     
     this.stateMethods = {}
     for(let item in this){
@@ -105,6 +106,20 @@ class App extends Component {
     this.setState({
       currentLesson
     })
+  }
+
+  updateAfterLessonEdits(data){
+    let currentLesson = Object.assign(
+      {}, 
+      this.state.currentLesson,
+      {
+        title: data.title,
+        type: data.type,
+        description: data.description,
+        tags: data.tags
+      }
+    )
+    this.setState({currentLesson});
   }
 
   setCurrentLessonNull(){

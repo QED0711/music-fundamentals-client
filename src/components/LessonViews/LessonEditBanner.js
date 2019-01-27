@@ -6,6 +6,7 @@ import {Mutation} from 'react-apollo';
 import {CHANGE_LESSON_PUBLISH_STATE} from '../../queries/mutations';
 
 import DeleteLessonButton from './DeleteLessonButton'
+import EditLessonButton from './EditLessonButton'
 
 const LessonEditBanner = (props) => {
     const lesson = props.lesson
@@ -37,8 +38,11 @@ const LessonEditBanner = (props) => {
                                     toggleLessonPublish({variables: {id: lesson.id}})                               
                                 }
                             }>{lesson.published ? "Unpublish" : "Publish"}</button>
-                            <button>Edit Lesson Info</button>
+                            
+                            <EditLessonButton lesson={lesson} stateMethods={props.stateMethods}/>
+                            
                             <DeleteLessonButton lesson={lesson} stateMethods={props.stateMethods}/>
+                            
                             <button onClick={ e => {
                                 let text = e.target.innerText;
                                 e.target.innerText = text === "Student View" ? "Instructor View" : "Student View"
