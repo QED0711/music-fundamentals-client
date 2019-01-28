@@ -26,6 +26,12 @@ const NewLessonForm = (props) => {
         <Mutation mutation={CREATE_NEW_LESSON}>
             {
                 (createLesson, {data}) => {
+                    if(data){
+                        // if the mutation was successful, set the current lesson to the newly created lesson
+                        // redirect to the newley created lesson edit page
+                        props.stateMethods.setCurrentLesson(data.createLesson)
+                        return <Redirect to={`/lessons/${data.createLesson.id}`} />
+                    }
                     return(
                         <div id="new-lesson-form">
                         <h2>Create a new lesson</h2>
@@ -35,10 +41,7 @@ const NewLessonForm = (props) => {
                             const lessonData = getLessonData()
                             createLesson({variables: lessonData})
                         }}>
-                            {
-                                // if the mutation was successful, redirect to the newley created lesson edit page
-                                data && <Redirect to={`/lessons/${data.createLesson.id}/edit`} />
-                            }
+                            
                             <label>Type</label><br/>
                             <select id="new-lesson-type">
                                 <option value="reading">Reading</option>

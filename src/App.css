@@ -1,5 +1,7 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
+  width: 85%;
+  margin: 0 auto;
 }
 
 .App-logo {
@@ -35,7 +37,7 @@
 /* TEST CSS */
 
 iframe{
-  width: 85%;
+  width: 100%;
   min-height: 400px;
   box-shadow: 4px 4px 10px rgb(141, 141, 141);
 }
