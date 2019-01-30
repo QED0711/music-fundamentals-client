@@ -12,7 +12,7 @@ class ContentNFInteractive extends Component{
 
         this.contentOptions = parseOptionsString(content.data[content.data.length - 1])
         this.NFClient = stateMethods.NFClient;
-        
+
         this.options = options;
 
         this.options.viewParams = {}
@@ -75,6 +75,7 @@ class ContentNFInteractive extends Component{
             } 
           }
           document.getElementById(`nf-interactive-${this.content.id}`).classList.add("nf-interactive-passed");     
+          this.props.stateMethods.increasePassedInteractiveCount()
     }
 
     parseJSON(exerciseJSON){
@@ -125,11 +126,13 @@ class ContentNFInteractive extends Component{
                 exerciseScore.selectMeasures(graded[0][0], graded[0][0] + 1);
             } else {
                 document.getElementById(`nf-interactive-${this.content.id}`).classList.add("nf-interactive-passed");
+                this.props.stateMethods.increasePassedInteractiveCount()
             }
         
       }
 
     componentDidMount(){
+
         // create the exercise and answer score iframes via the noteflight api
         const exercise = new this.NFClient.ScoreView(`exercise-${this.content.id}`, this.exerciseScoreCode, this.options.exercise);
         const answer = new this.NFClient.ScoreView(`answer-${this.content.id}`, this.answerScoreCode, this.options.answer);

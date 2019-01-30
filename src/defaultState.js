@@ -29,7 +29,10 @@ let defaultState = {
     lessonEdits: {
         currentLessonId: null,
         lessonContents: []
-    }
+    },
+
+    interactiveCount: 0,
+    passedInteractiveCount: 0,
     
 }
 

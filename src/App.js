@@ -52,6 +52,9 @@ class App extends Component {
     this.setPlayerScores = this.setPlayerScores.bind(this);
     this.toggleStudentView = this.toggleStudentView.bind(this);
     this.updateAfterLessonEdits = this.updateAfterLessonEdits.bind(this);
+    this.setInteractiveCount = this.setInteractiveCount.bind(this);
+    this.resetInteractiveCount = this.resetInteractiveCount.bind(this);
+    this.increasePassedInteractiveCount = this.increasePassedInteractiveCount.bind(this);
     
     this.stateMethods = {}
     for(let item in this){
@@ -173,6 +176,27 @@ class App extends Component {
     })
   }
 
+  setInteractiveCount(num){
+    if(this.state.interactiveCount !== num){
+      this.setState({
+        interactiveCount: num
+      })
+    }
+  }
+
+  resetInteractiveCount(){
+    this.setState({
+      interactiveCount: 0,
+      passedInteractiveCount: 0
+    });
+  }
+
+  increasePassedInteractiveCount(){
+    let {passedInteractiveCount} = this.state;
+    passedInteractiveCount += 1;
+    this.setState({passedInteractiveCount});
+  }
+
   render() {
     console.log(this.state)
     return (
@@ -180,7 +204,7 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">          
           <Banner title={this.state.pageTitle}/>
-          <Navigation stateMethods={this.stateMethods}/>
+          <Navigation stateMethods={this.stateMethods} state={this.state}/>
           
           {/* ===== MAIN NAVIGATION ROUTES ===== */}
 

@@ -124,6 +124,15 @@ const UPDATE_CONTENT = gql`
     }
 `
 
+const GENERATE_TOKEN = gql`
+    mutation generateToken($decrypted: String!){
+        generateToken(decrypted: $decrypted){
+            encrypted
+            decrypted
+        }
+    }
+`
+
 
 export {
     CREATE_NEW_LESSON,
@@ -135,4 +144,5 @@ export {
     REMOVE_AND_REORDER_CONTENTS,
     REORDER_CONTENTS,
     UPDATE_CONTENT,
+    GENERATE_TOKEN,
 }

@@ -12,6 +12,8 @@ import NewContentForm from '../LessonEditForms/NewContentForm';
 import ContentCard from '../ContentCard';
 import ContentPreview from '../LessonEditForms/ContentPreview';
 
+import TokenGeneratorForm from '../Token/TokenGeneratorForm';
+
 class LessonContainer extends Component {
 
     constructor(props){
@@ -20,6 +22,9 @@ class LessonContainer extends Component {
         this.lesson = this.props.state.currentLesson
         this.lessonID = this.props.match.params.id
         this.setCurrentLessonContents = this.props.stateMethods.setCurrentLessonContents;
+        
+        // on load of a new lesson, resets the interactive count to 0 so we start from a clean slate
+        this.props.stateMethods.resetInteractiveCount()
 
         this.state = {
             contentPreview : null
@@ -47,8 +52,22 @@ class LessonContainer extends Component {
         })
     }
 
+    countInteractiveAssignments(contents){
+        // find all contents with type "nfInteractive" and set that as the application state interactiveCount
+        this.props.stateMethods.setInteractiveCount(contents.filter(content => content.type === "nfInteractive").length)
+    }
+
+    displayTokenGenerator(){
+        let {interactiveCount, passedInteractiveCount} = this.props.state
+        if(passedInteractiveCount !== 0 && passedInteractiveCount === interactiveCount){
+            return(
+                <TokenGeneratorForm lesson={this.props.state.currentLesson} />
+            )
+        }
+    }
+
     render(){
-        if(!this.lesson.id){
+        if(!this.props.state.currentLesson.id){
             return <Redirect to="/lessons"/>
         }
         return(
@@ -68,11 +87,13 @@ class LessonContainer extends Component {
                         if(!this.state.contentPreview){
                             refetch()
                         }
-                        {
-                            !this.props.state.currentLesson.contents 
-                            &&
-                            this.setCurrentLessonContents(contents)
-                        }
+                    
+                        !this.props.state.currentLesson.contents 
+                        &&
+                        this.setCurrentLessonContents(contents)
+                    
+                        this.countInteractiveAssignments(contents);
+                        
                         return(
                             <div>
                                 {
@@ -101,7 +122,9 @@ class LessonContainer extends Component {
                                     && 
                                     <ContentPreview content={this.state.contentPreview} stateMethods={this.props.stateMethods}/> 
                                 }
+                                
                                 {this.contentMapper(contents)}
+                                {this.displayTokenGenerator()}
                             </div>
                         )
                     }
