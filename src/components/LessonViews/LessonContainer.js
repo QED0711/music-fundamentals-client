@@ -5,8 +5,6 @@ import {GET_LESSON_CONTENTS} from "../../queries/queries";
 
 import {Redirect} from 'react-router-dom';
 
-import contentRenderer from '../../js/contentRenderer';
-
 import LessonEditBanner from './LessonEditBanner';
 import NewContentForm from '../LessonEditForms/NewContentForm';
 import ContentCard from '../ContentCard';

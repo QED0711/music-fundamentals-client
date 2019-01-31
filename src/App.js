@@ -25,6 +25,7 @@ import NewLessonForm from './components/InstructorPortal/NewLessonForm';
 
 import LessonContainer from './components/LessonViews/LessonContainer';
 import LessonEditor from './components/LessonViews/LessonEditor';
+import TokenChecker from './components/Token/TokenChecker';
 
 
 // Apollo Client Setup
@@ -231,6 +232,9 @@ class App extends Component {
           />
           <Route path="/lessons/:id/edit" exact
             render={props => <LessonEditor  {...props} state={this.state} stateMethods={this.stateMethods}/>}
+          />
+          <Route path="/instructors/token-validation" exact
+            render={props => <TokenChecker  {...props} state={this.state} stateMethods={this.stateMethods}/>}
           />
 
         </div>

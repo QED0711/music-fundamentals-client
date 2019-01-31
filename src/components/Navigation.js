@@ -3,20 +3,23 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 
-const Navigation = (props) => {
+const Navigation = ({stateMethods, state}) => {
+
+    console.log("NAV: ", state)
 
     const handleClick = () => {
-        props.stateMethods.setCurrentLessonNull()
+        stateMethods.setCurrentLessonNull()
     }
+
     return(
         <nav onClick={handleClick}>
             <Link to="/">Home</Link>
             <Link to="/lessons">Lessons</Link>
             <Link to="/instructors/login">Instructor Portal</Link>
             {
-                props.state.currentUser.signedIn 
+                state.currentUser.signedIn 
                 &&
-                <Link to="/instructors/token-validation"></Link>
+                <Link to="/instructors/token-validation">Verify Student Token</Link>
             }
         </nav>
     )

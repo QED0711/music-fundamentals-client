@@ -133,6 +133,15 @@ const GENERATE_TOKEN = gql`
     }
 `
 
+const DECRYPT_TOKEN = gql`
+    mutation decryptToken($encrypted: String!){
+        decryptToken(encrypted: $encrypted){
+            encrypted
+            decrypted
+        }
+    }
+`
+
 
 export {
     CREATE_NEW_LESSON,
@@ -145,4 +154,5 @@ export {
     REORDER_CONTENTS,
     UPDATE_CONTENT,
     GENERATE_TOKEN,
+    DECRYPT_TOKEN,
 }

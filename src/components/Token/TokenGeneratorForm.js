@@ -9,7 +9,7 @@ const TokenGeneratorForm = ({lesson}) => {
 
     const getUserSignature = () => {
         let name = document.getElementById("token-generator-name").value;
-        let signatureData = `name:${name},lesson:${lesson.title}`
+        let signatureData = `name:${name},lesson:${lesson.title},lessonId:${lesson.id}`
 
         return signatureData
     }
@@ -19,7 +19,7 @@ const TokenGeneratorForm = ({lesson}) => {
             return(
                 <div id="token-display-box">
                     <h3>The token below is varification that you have completed this assignment</h3>
-                    <p id="encrypted-token">{data.generateToken.encrypted}</p>
+                    <textarea id="encrypted-token" defaultValue={data.generateToken.encrypted}></textarea>
                 </div>
             )
         }
