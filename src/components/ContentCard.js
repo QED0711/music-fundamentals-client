@@ -27,7 +27,8 @@ class ContentCard extends Component {
     }
 
     handleMouseLeave(){
-        this.setEditMode(false)
+        let editFormActive = document.getElementsByClassName("content-edit-form").length
+        if(!editFormActive) this.setEditMode(false)
     }
 
     render(){
