@@ -69,7 +69,11 @@ a{
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-.content-card{
+.content-edit-buttons button{
+  max-width: 10em;
+}
+
+.content-card-editable{
   margin: 1em auto;
   padding: 2em;
   border-radius: 4px;

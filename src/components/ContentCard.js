@@ -8,24 +8,35 @@ class ContentCard extends Component {
 
     constructor(props){
         super(props);
-        console.log("THIS: ", this)
-        this.state = {
+        
+        this.handleMouseEnter = this.handleMouseEnter.bind(this)
+        this.handleMouseLeave = this.handleMouseLeave.bind(this)
+        this.setEditMode = this.setEditMode.bind(this)
 
+        this.state = {
+            editMode: false
         }
     }
 
-    returnMouseEnterHandler(content){
-        return () => {
-            console.log(content)
-        } 
+    setEditMode(bool){
+        this.setState({editMode: bool})
+    }
+
+    handleMouseEnter(){        
+        this.setEditMode(true)
+    }
+
+    handleMouseLeave(){
+        this.setEditMode(false)
     }
 
     render(){
         let {content, lesson, state, stateMethods} = this.props;
+        let instructorPrivileges = (lesson.instructorId === state.currentUser.id)
         return(
-            <div className="content-card" onMouseEnter={this.returnMouseEnterHandler(content)}>
+            <div className={instructorPrivileges ? "content-card content-card-editable" : "content-card"} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
                 {
-                    (lesson.instructorId === state.currentUser.id)
+                    (instructorPrivileges && this.state.editMode)
                     &&
                     <ContentEditButtons content={content} stateMethods={stateMethods} lesson={lesson}/>
                 }
