@@ -14,14 +14,16 @@ const DeleteContentButton = (props) => {
                     }
                     return(
                         <button onClick={ e => {
-                            removeAndReorderContents({
-                                variables: {
-                                    id: content.id,
-                                    lessonId: lesson.id,
-                                    position: content.position
-                                }
-                            })
-                            // stateMethods.removeDeletedContent(content.id)
+                            const deleteContentConfirmation = window.confirm("Are you shure you want to delete this content? This action cannot be undone.")
+                            if(deleteContentConfirmation){
+                                removeAndReorderContents({
+                                    variables: {
+                                        id: content.id,
+                                        lessonId: lesson.id,
+                                        position: content.position
+                                    }
+                                })
+                            }
                         }
                         }>Delete</button>
                     )
