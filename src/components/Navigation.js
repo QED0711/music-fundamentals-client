@@ -19,7 +19,7 @@ const Navigation = ({stateMethods, state}) => {
             {
                 state.currentUser.signedIn 
                 &&
-                <Link to="/instructors/token-validation">Verify Student Token</Link>
+                <Link to="/instructors/token-validation">Varify Student Token</Link>
             }
         </nav>
     )

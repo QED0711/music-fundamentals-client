@@ -79,3 +79,8 @@ a{
   border-radius: 4px;
   box-shadow: 2px 2px 10px grey inset;
 }
+
+.lesson-card{
+
+  cursor: pointer;
+}
