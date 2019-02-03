@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import {Query} from 'react-apollo';
-import {GET_LESSON_CONTENTS} from "../../queries/queries";
+import {GET_LESSON, GET_LESSON_CONTENTS} from "../../queries/queries";
 
 import {Redirect} from 'react-router-dom';
 
@@ -27,6 +27,7 @@ class LessonContainer extends Component {
         this.state = {
             contentPreview : null
         }
+
 
         this.setContentPreview = this.setContentPreview.bind(this);
         this.clearContentPreview = this.clearContentPreview.bind(this);
@@ -65,16 +66,11 @@ class LessonContainer extends Component {
     }
 
     render(){
+        console.log("LESSON CONTAINER CALLED")
         // If the current lesson is not set in the state:
         if(!this.props.state.currentLesson.id){
-            console.log("LESSON PROPS: ", this.props)
             // if a lesson id is defined in the url string
-            if(this.props.match.params.id){
-                return <Redirect to={`/set-lesson/${this.props.match.params.id}`} />
-            } else {
-                return <Redirect to="/lessons"/>
-            }
-
+            return <Redirect to={`/set-lesson/${this.props.match.params.id}`} />
         }
         return(
             <div id="lesson-display-box">
