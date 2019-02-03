@@ -5,6 +5,7 @@ import ImageContentOptions from '../components/LessonEditForms/ContentOptions/Im
 import NoteflightPlayerOptions from '../components/LessonEditForms/ContentOptions/NoteflightPlayerOptions'
 import NoteflightInteractiveOptions from '../components/LessonEditForms/ContentOptions/NoteflightInteractiveOptions'
 import ListOptions from '../components/LessonEditForms/ContentOptions/ListOptions'
+import LinkContentOptions from '../components/LessonEditForms/ContentOptions/LinkContentOptions';
 
 const contentEditOptions = (type) => {
     switch(type){
@@ -14,12 +15,10 @@ const contentEditOptions = (type) => {
             return <NoteflightPlayerOptions />
         case("nfInteractive"):
             return <NoteflightInteractiveOptions />
-        // case("bulletList"):
-        //     return <ListOptions />
-        // case("numberedList"):
-        //     return <ListOptions />
         case("list"):
             return <ListOptions />
+        case("link"):
+            return <LinkContentOptions />
         default:
             return <DefaultContentOptions />
             

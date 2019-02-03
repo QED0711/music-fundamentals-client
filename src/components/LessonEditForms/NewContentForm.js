@@ -1,11 +1,11 @@
-import React, {PureComponent} from 'react'
+import React, {Component} from 'react'
 
 import {Mutation} from 'react-apollo';
 import {CREATE_NEW_CONTENT} from '../../queries/mutations';
 
 import contentEditOptions from '../../js/contentEditOptions'
 
-class NewContentForm extends PureComponent {
+class NewContentForm extends Component {
 
     constructor(props){
         super(props);
@@ -14,7 +14,7 @@ class NewContentForm extends PureComponent {
         }
 
         this.lesson = this.props.lesson
-        this.contents = this.props.contents
+        // this.contents = this.props.contents
         this.appendContent = this.props.stateMethods.appendContent;
 
         this.setContentType = this.setContentType.bind(this);
@@ -23,12 +23,6 @@ class NewContentForm extends PureComponent {
         this.clearContentPreview = this.props.clearContentPreview;
     }
 
-
-    componentDidMount(){
-        // setInterval(() => {
-        //     this.setContentPreview(this.getContentInfo())
-        // }, 250)
-    }
 
     getContentInfo = (preview = false) => {
         const type = document.getElementById("new-content-type").value
@@ -45,8 +39,8 @@ class NewContentForm extends PureComponent {
         // get the user defined position of the new content element if given
         // if not given, or outside the range of elements, set to the default last position
         const userPosition = document.getElementById("new-content-position").value;
-        let position = userPosition !== "" ? parseInt(userPosition) : this.contents.length;
-        if(position > this.contents.length) position = this.contents.length;
+        let position = userPosition !== "" ? parseInt(userPosition) : this.props.contents.length;
+        if(position > this.props.contents.length) position = this.props.contents.length;
 
         // Get content options (unique to each content type)
         // Find all elements with className "new-content-options"
@@ -105,6 +99,7 @@ class NewContentForm extends PureComponent {
                                     <option value="image">Image</option>
                                     <option value="nfPlayer">Noteflight Score</option>
                                     <option value="nfInteractive">Interactive Noteflight Score</option>
+                                    <option value="link">Link</option>
                                     <option value="list">List</option>
                                 </select><br/>
     

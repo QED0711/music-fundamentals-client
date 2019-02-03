@@ -8,6 +8,7 @@ import ContentList from '../components/contents/ContentList';
 import ContentImage from '../components/contents/ContentImage';
 import ContentNFPlayer from '../components/contents/ContentNFPlayer';
 import ContentNFInteractive from '../components/contents/ContentNFInteractive';
+import ContentLink from '../components/contents/ContentLink';
 
 const contentRenderer = (content, stateMethods, options = {}) => {
     switch(content.type){
@@ -17,6 +18,8 @@ const contentRenderer = (content, stateMethods, options = {}) => {
             return(<ContentHeading2 key={content.id} content={content.data} />);
         case("heading3"):
             return(<ContentHeading3 key={content.id} content={content.data} />);
+        case("link"):
+            return(<ContentLink key={content.id} content={content.data} />);
         case("list"):
             return(<ContentList key={content.id} content={content.data} />);
         case("image"):
