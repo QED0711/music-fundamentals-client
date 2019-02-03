@@ -8,6 +8,7 @@ import NoteflightPlayerOptions from './ContentOptions/NoteflightPlayerOptions';
 
 import {Mutation} from 'react-apollo';
 import {UPDATE_CONTENT} from '../../queries/mutations'
+import LinkContentOptions from './ContentOptions/LinkContentOptions';
 
 const ContentEditForm = ({content, stateMethods}) => {
 
@@ -48,6 +49,7 @@ const ContentEditForm = ({content, stateMethods}) => {
                             {content.type === 'image' && <ImageContentOptions content={content}/>}
                             
                             {content.type === 'list' && <ListOptions content={content} />}
+                            {content.type === 'link' && <LinkContentOptions content={content} />}
 
                             <input type="submit" value="Save Changes" />
                         </form>

@@ -16,11 +16,7 @@ const Navigation = ({stateMethods, state}) => {
             <Link to="/">Home</Link>
             <Link to="/lessons">Lessons</Link>
             <Link to="/instructors/login">Instructor Portal</Link>
-            {
-                state.currentUser.signedIn 
-                &&
-                <Link to="/instructors/token-validation">Verify Student Token</Link>
-            }
+            <Link to="/token-varification">Varify Token</Link>
         </nav>
     )
 }

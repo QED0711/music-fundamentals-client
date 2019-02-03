@@ -36,7 +36,7 @@ const TokenChecker = ({stateMethods, state}) => {
 
                                 <br/>
 
-                                <input type="submit" value="Verify Token" />
+                                <input type="submit" value="Varify Token" />
                             </form>
 
                             {

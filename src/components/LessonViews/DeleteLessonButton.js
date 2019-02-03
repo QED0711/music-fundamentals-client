@@ -17,7 +17,10 @@ const DeleteLessonButton = ({lesson, stateMethods}) => {
                 }
                 return(
                     <button onClick={ e => {
-                        deleteLesson({variables: {id: lesson.id}})
+                        const deleteConfirmation = window.confirm("Are you sure you want to delete this lesson and all its contents? This action cannot be undone.");
+                        if(deleteConfirmation){
+                            deleteLesson({variables: {id: lesson.id}})
+                        }
                     }
                     }>Delete Lesson</button>
                 )

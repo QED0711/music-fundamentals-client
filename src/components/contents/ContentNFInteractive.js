@@ -162,7 +162,7 @@ class ContentNFInteractive extends Component{
         exerciseFrame.onload = () => {
             console.log("Exercise Loaded")
             exercise.addEventListener("scoreDataLoaded", () => {
-                console.log("Exercise Score Loaded");
+                console.log("EXERCISE FRAME READY FOR INTERACTION")
             })
         }
         
@@ -171,6 +171,7 @@ class ContentNFInteractive extends Component{
             console.log("Answer Loaded")
             answer.addEventListener("scoreDataLoaded", () => {
                 if(this.contentOptions.gradingMethod === "simple"){
+                    console.log("ANSWER FRAME READY FOR INTERACTION")
                     // if simple grading method, load score data as json like object (only checkes pitches & durations)
                     answer.getScore().done(data => {
                         let answerData = data;
