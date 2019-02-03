@@ -77,6 +77,7 @@ const GET_LESSON = gql`
             id
             instructorId
             title
+            type
             description
             published
             tags
