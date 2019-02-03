@@ -65,8 +65,16 @@ class LessonContainer extends Component {
     }
 
     render(){
+        // If the current lesson is not set in the state:
         if(!this.props.state.currentLesson.id){
-            return <Redirect to="/lessons"/>
+            console.log("LESSON PROPS: ", this.props)
+            // if a lesson id is defined in the url string
+            if(this.props.match.params.id){
+                return <Redirect to={`/set-lesson/${this.props.match.params.id}`} />
+            } else {
+                return <Redirect to="/lessons"/>
+            }
+
         }
         return(
             <div id="lesson-display-box">

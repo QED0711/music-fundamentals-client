@@ -24,6 +24,7 @@ import InstructorLessons from './components/InstructorPortal/InstructorLessons';
 import NewLessonForm from './components/InstructorPortal/NewLessonForm';
 
 import LessonContainer from './components/LessonViews/LessonContainer';
+import SetLesson from './components/LessonViews/SetLesson';
 import LessonEditor from './components/LessonViews/LessonEditor';
 import TokenChecker from './components/Token/TokenChecker';
 
@@ -230,9 +231,12 @@ class App extends Component {
           <Route path="/lessons/:id" exact
             render={props => <LessonContainer  {...props} state={this.state} stateMethods={this.stateMethods}/>}
           />
-          <Route path="/lessons/:id/edit" exact
-            render={props => <LessonEditor  {...props} state={this.state} stateMethods={this.stateMethods}/>}
+          <Route path="/set-lesson/:id" exact
+            render={props => <SetLesson  {...props} state={this.state} stateMethods={this.stateMethods}/>}
           />
+          {/* <Route path="/lessons/:id/edit" exact
+            render={props => <LessonEditor  {...props} state={this.state} stateMethods={this.stateMethods}/>}
+          /> */}
           <Route path="/token-varification" exact
             render={props => <TokenChecker  {...props} state={this.state} stateMethods={this.stateMethods}/>}
           />
