@@ -27,10 +27,10 @@ class ContentEditButtons extends Component {
         return(
             <div className="content-edit-buttons">
                 {
-                    this.state.editMode ? <ContentEditForm content={this.content} stateMethods={this.props.stateMethods}/> : <button onClick={this.enterEditMode}>Edit</button>
+                    this.state.editMode ? <ContentEditForm content={this.content} stateMethods={this.props.stateMethods} scheduleRefetch={this.props.scheduleRefetch} /> : <button onClick={this.enterEditMode}>Edit</button>
                 }
-                <DeleteContent content={this.content} lesson={this.props.lesson} stateMethods={this.props.stateMethods}/>
-                <ContentPositionButtons content={this.content} lesson={this.lesson} stateMethods={this.props.stateMethods} />
+                <DeleteContent content={this.content} lesson={this.props.lesson} stateMethods={this.props.stateMethods} scheduleRefetch={this.props.scheduleRefetch} />
+                <ContentPositionButtons content={this.content} lesson={this.lesson} stateMethods={this.props.stateMethods} scheduleRefetch={this.props.scheduleRefetch} />
             </div>
         )
     }
