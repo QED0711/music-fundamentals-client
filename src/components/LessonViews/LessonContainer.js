@@ -127,7 +127,7 @@ class LessonContainer extends Component {
                         this.setCurrentLessonContents(data.lesson.contents)
                         // count how many interactive assignments are on the page, and send that number to the state
                         contents && this.countInteractiveAssignments(contents);
-                        
+                                                
                         return(
                             <div>
                                 {
