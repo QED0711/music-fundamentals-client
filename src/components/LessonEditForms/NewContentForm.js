@@ -73,17 +73,18 @@ class NewContentForm extends Component {
             <Mutation mutation={CREATE_NEW_CONTENT}>
                 {
                     (createContent, {data}) => {
-                        if(data){
-                            this.appendContent(data.createContent)
-                        }
+                        // if(data){
+                        //     this.appendContent(data.createContent)
+                        // }
                         return(
             
-                            <form id="new-content-form" onSubmit={ e => {
-                                e.preventDefault();    
-                                this.clearContentPreview();
-                                // scheduleRefetch()
-                                const contentInfo = this.getContentInfo();
-                                createContent({variables: contentInfo});
+                            <form id="new-content-form" onSubmit={ async(e) => {
+                                    e.preventDefault();    
+                                    this.clearContentPreview();
+                                    // scheduleRefetch()
+                                    const contentInfo = this.getContentInfo();
+                                    let {data} = await createContent({variables: contentInfo});
+                                    this.appendContent(data.createContent);
                                 }
                             }
                             onChange={ e => {
