@@ -67,6 +67,10 @@ class NewContentForm extends Component {
         })
     }
 
+    clearFormData(){
+        [...document.getElementsByClassName("new-content-data")].forEach(content => content.value = "")
+    }
+
     render(){
         let {scheduleRefetch} = this.props
         return(
@@ -83,6 +87,7 @@ class NewContentForm extends Component {
                                     this.clearContentPreview();
                                     // scheduleRefetch()
                                     const contentInfo = this.getContentInfo();
+                                    this.clearFormData()
                                     let {data} = await createContent({variables: contentInfo});
                                     this.appendContent(data.createContent);
                                 }
