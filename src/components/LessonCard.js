@@ -1,12 +1,18 @@
 import React from 'react';
 
+import {Redirect} from 'react-router-dom';
+import redirectToCurrentLesson from '../js/redirectToCurrentLesson'
 // import {Query} from 'react-apollo';
 
-const LessonCard = (props) => {
-    let lesson = props.lesson
+const LessonCard = ({lesson, stateMethods, state}) => {
+
     
+    // if(state && state.currentLesson.id){
+    //     return redirectToCurrentLesson(state.currentLesson)
+    // }
+
     const handleClick = (e) => {
-        props.stateMethods.setCurrentLesson(lesson)
+        stateMethods.setCurrentLesson(lesson)
     }
     return(
         <div className="lesson-card" data-id={lesson.id} onClick={handleClick}>

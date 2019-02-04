@@ -65,6 +65,8 @@ class LessonContainer extends Component {
         }
     }
 
+
+
     render(){
         console.log("LESSON CONTAINER CALLED")
         // If the current lesson is not set in the state:
@@ -72,12 +74,14 @@ class LessonContainer extends Component {
             // if a lesson id is defined in the url string
             return <Redirect to={`/set-lesson/${this.props.match.params.id}`} />
         }
+        let {contentPreview} = this.state
+        let {currentUser} = this.props.state
         return(
             <div id="lesson-display-box">
                 <h2>{this.props.state.currentLesson.title}</h2>
                 <h4>{this.props.state.currentLesson.description}</h4>
     
-                <Query query={GET_LESSON_CONTENTS} variables={{id: this.lessonID}}>
+                <Query query={GET_LESSON_CONTENTS} variables={{id: this.lessonID}} displayName="GET_LESSON_CONTENTS">
                 {
                     ({data, refetch, loading}) => {
                         if(loading) return <h4>loading...</h4>
@@ -86,8 +90,9 @@ class LessonContainer extends Component {
                         // triggered if contentPreview updated too often.
                         // therefore, now only triggers if content preview does not exist
                         // e.g. the user submited the content, therefore clearing the preview
-                        if(!this.state.contentPreview){
-                            refetch()
+                        // debugger
+                        if(!contentPreview){
+                            // refetch();
                         }
                     
                         !this.props.state.currentLesson.contents 

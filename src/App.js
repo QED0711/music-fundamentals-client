@@ -234,9 +234,8 @@ class App extends Component {
           <Route path="/set-lesson/:id" exact
             render={props => <SetLesson  {...props} state={this.state} stateMethods={this.stateMethods}/>}
           />
-          {/* <Route path="/lessons/:id/edit" exact
-            render={props => <LessonEditor  {...props} state={this.state} stateMethods={this.stateMethods}/>}
-          /> */}
+            
+            {/* TOKEN ROUTE */}
           <Route path="/token-varification" exact
             render={props => <TokenChecker  {...props} state={this.state} stateMethods={this.stateMethods}/>}
           />
