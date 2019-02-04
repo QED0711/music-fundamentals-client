@@ -29,15 +29,16 @@ const ContentEditForm = ({content, stateMethods}) => {
 
             {
                 (updateContent, {data}) => {
-                    if(data){
-                        setCurrentLessonContents(data.updateContent)
-                    }
+                    // if(data){
+                    // }
                     return(
-                        <form className="content-edit-form" onSubmit={e => {
+                        <form className="content-edit-form" onSubmit={async (e) => {
                             e.preventDefault();
                             let id = content.id;
-                            let data = getEditedData();
-                            updateContent({variables: {id, data}})    
+                            let formData = getEditedData();
+                            let {data} = await updateContent({variables: {id, data: formData}})    
+                            setCurrentLessonContents(data.updateContent)
+
                         }}>
                             {content.type === 'paragraph' && <DefaultContentOptions content={content} />}
                             {content.type === 'heading2' && <DefaultContentOptions content={content} />}
