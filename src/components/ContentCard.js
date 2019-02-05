@@ -39,7 +39,7 @@ class ContentCard extends Component {
                 {
                     (instructorPrivileges && this.state.editMode)
                     &&
-                    <ContentEditButtons content={content} stateMethods={stateMethods} lesson={lesson}/>
+                    <ContentEditButtons content={content} stateMethods={stateMethods} lesson={lesson} scheduleRefetch={this.props.scheduleRefetch}/>
                 }
                 {contentRenderer(content, stateMethods)}
             </div>

@@ -3,7 +3,16 @@ import React, {Component} from 'react';
 class ContentNFPlayer extends Component{
     constructor(props){
         super(props);
-        const {content, stateMethods, options} = props
+
+        this.state = {
+            playerScore: null
+        }
+
+        this.setPlayerScore = this.setPlayerScore.bind(this);
+    }
+    
+    componentSetup(){
+        const {content, stateMethods, options} = this.props
         this.content = content
         
         // if the content data that is passed is just a preview, it will not have an id
@@ -26,16 +35,8 @@ class ContentNFPlayer extends Component{
         }
 
         this.scoreCode = this.parseNFUrl(content.data[0])
-
-        this.state = {
-            playerScore: null
-        }
-
-        this.setPlayerScore = this.setPlayerScore.bind(this);
-
-        console.log("RENDERED CONTENT_NF_PLAYER")
     }
-    
+
     setPlayerScore(score){
         this.setState({
             playerScore: score
@@ -45,11 +46,6 @@ class ContentNFPlayer extends Component{
     parseNFUrl(url){
         let splitUrl = url.split("/")
         return splitUrl[splitUrl.length - 1];
-    }
-
-    shouldComponentUpdate(){
-        // stops rerendering from taking place
-        return false;
     }
 
     componentDidMount(){
@@ -77,9 +73,7 @@ class ContentNFPlayer extends Component{
 
 
     render(){
-        if(this.score){
-            
-        }
+        this.componentSetup()
         return (
             <div className="content-box content-nf-player">
                 {/* this div element below will be replaceed by a noteflight embeded score */}

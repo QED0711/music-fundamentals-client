@@ -5,7 +5,13 @@ import parseOptionsString from '../../js/parseOptionsString';
 class ContentNFInteractive extends Component{
     constructor(props){
         super(props);
-        const {content, stateMethods, options} = props
+
+        this.state = {answer: null};
+        this.setAnswer = this.setAnswer.bind(this);
+    }
+
+    componentSetup(){
+        const {content, stateMethods, options} = this.props
         this.content = content
         
         if(!this.content.id) this.content.id = "PREVIEW"
@@ -37,12 +43,6 @@ class ContentNFInteractive extends Component{
 
         this.exerciseScoreCode = this.parseNFUrl(content.data[0])
         this.answerScoreCode = this.parseNFUrl(content.data[1])
-
-        this.state = {answer: null};
-
-        this.setAnswer = this.setAnswer.bind(this);
-
-        console.log("NF_INTERACTIVE: ", this)
     }
 
     parseNFUrl(url){
@@ -130,6 +130,7 @@ class ContentNFInteractive extends Component{
             }
         
       }
+
 
     componentDidMount(){
 
@@ -219,6 +220,10 @@ class ContentNFInteractive extends Component{
 
 
     render(){
+        // calling the constructor in the render method allows us to reset the variables designated in the original constructor call 
+        // this way when anything is that would effect the component, we can update just those parts without having to remount the entire component.
+        // this.constructor(this.props, this.state)
+        this.componentSetup();
         return (
             <div id={`nf-interactive-${this.content.id}`} className="content-box content-nf-player">
                 <h6>Assignment Type: {this.contentOptions.assignmentType}</h6>

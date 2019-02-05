@@ -10,7 +10,7 @@ import {Mutation} from 'react-apollo';
 import {UPDATE_CONTENT} from '../../queries/mutations'
 import LinkContentOptions from './ContentOptions/LinkContentOptions';
 
-const ContentEditForm = ({content, stateMethods}) => {
+const ContentEditForm = ({content, stateMethods, exitEditMode}) => {
 
     const {setCurrentLessonContents} = stateMethods;
 
@@ -29,15 +29,15 @@ const ContentEditForm = ({content, stateMethods}) => {
 
             {
                 (updateContent, {data}) => {
-                    if(data){
-                        setCurrentLessonContents(data.updateContent)
-                    }
                     return(
-                        <form className="content-edit-form" onSubmit={e => {
+                        <form className="content-edit-form" onSubmit={async (e) => {
                             e.preventDefault();
                             let id = content.id;
-                            let data = getEditedData();
-                            updateContent({variables: {id, data}})    
+                            let formData = getEditedData();
+                            let {data} = await updateContent({variables: {id, data: formData}})    
+                            setCurrentLessonContents(data.updateContent);
+                            exitEditMode();
+
                         }}>
                             {content.type === 'paragraph' && <DefaultContentOptions content={content} />}
                             {content.type === 'heading2' && <DefaultContentOptions content={content} />}

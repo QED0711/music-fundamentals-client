@@ -5,45 +5,36 @@ import {REORDER_CONTENTS} from '../../queries/mutations';
 
 const ContentPositionButtons = ({content, lesson, stateMethods}) => {
     let {setCurrentLessonContents} = stateMethods;
+
+    const handleClick = (reorderContents) => {
+        return async (e) => {
+            let position;
+            if(e.target.innerText === "Move Up"){
+                position = content.position - 1 >= 0 ? content.position - 1 : 0;
+            } else {
+                position = content.position + 1;
+            }
+            let {data} = await reorderContents(
+                {
+                    variables: {
+                        lessonId: lesson.id,
+                        id: content.id,
+                        position
+                    }
+                }
+            )
+            setCurrentLessonContents(data.reorderContents);
+        }
+    }
+
     return(
         <Mutation mutation={REORDER_CONTENTS}>
             {
-                (reorderContents, {data}) => {
-                    if(data && data.reorderContents.length){
-                        setCurrentLessonContents(data.reorderContents)
-                    }
+                (reorderContents) => {
                     return(
                         <div className="content-position-buttons">
-                            <button onClick={e => {
-                                let position = content.position - 1 >= 0 ? content.position - 1 : 0;
-                                reorderContents(
-                                    {
-                                        variables: {
-                                            lessonId: lesson.id,
-                                            id: content.id,
-                                            position
-                                        }
-                                    }
-                                )
-                            }}>
-                                Move Up
-                            </button>
-
-                            <button onClick={e => {
-                                let position = content.position + 1 
-                                reorderContents(
-                                    {
-                                        variables: {
-                                            lessonId: lesson.id,
-                                            id: content.id,
-                                            position
-                                        }
-                                    }
-                                )
-                            }}>
-                                Move Down
-                            </button>
-
+                            <button onClick={handleClick(reorderContents)}>Move Up</button>
+                            <button onClick={handleClick(reorderContents)}>Move Down</button>
                         </div>
                     ) 
                 }

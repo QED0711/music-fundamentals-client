@@ -5,8 +5,6 @@ import {Link} from 'react-router-dom';
 
 const Navigation = ({stateMethods, state}) => {
 
-    console.log("NAV: ", state)
-
     const handleClick = () => {
         stateMethods.setCurrentLessonNull()
     }

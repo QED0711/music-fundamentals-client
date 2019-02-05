@@ -15,6 +15,7 @@ class ContentEditButtons extends Component {
         }
 
         this.enterEditMode = this.enterEditMode.bind(this)
+        this.exitEditMode = this.exitEditMode.bind(this)
     }
 
     enterEditMode(){
@@ -23,14 +24,20 @@ class ContentEditButtons extends Component {
         })
     }
 
+    exitEditMode(){
+        this.setState({
+            editMode: false
+        })
+    }
+
     render(){
         return(
             <div className="content-edit-buttons">
                 {
-                    this.state.editMode ? <ContentEditForm content={this.content} stateMethods={this.props.stateMethods}/> : <button onClick={this.enterEditMode}>Edit</button>
+                    this.state.editMode ? <ContentEditForm content={this.content} stateMethods={this.props.stateMethods} exitEditMode={this.exitEditMode} /> : <button onClick={this.enterEditMode}>Edit</button>
                 }
-                <DeleteContent content={this.content} lesson={this.props.lesson} stateMethods={this.props.stateMethods}/>
-                <ContentPositionButtons content={this.content} lesson={this.lesson} stateMethods={this.props.stateMethods} />
+                <DeleteContent content={this.content} lesson={this.props.lesson} stateMethods={this.props.stateMethods}  />
+                <ContentPositionButtons content={this.content} lesson={this.lesson} stateMethods={this.props.stateMethods}  />
             </div>
         )
     }
