@@ -32,8 +32,6 @@ class LessonContainer extends Component {
 
         this.setContentPreview = this.setContentPreview.bind(this);
         this.clearContentPreview = this.clearContentPreview.bind(this);
-        this.scheduleRefetch = this.scheduleRefetch.bind(this);
-        this.clearRefetch = this.clearRefetch.bind(this);
 
     }
 
@@ -45,14 +43,6 @@ class LessonContainer extends Component {
    
     clearContentPreview(){
         this.setState({contentPreview : null});
-    }
-
-    scheduleRefetch(){
-        this.setState({refetch: true})
-    }
-
-    clearRefetch(){
-        this.setState({refetch: false})
     }
 
     contentMapper(contents){
@@ -98,6 +88,7 @@ class LessonContainer extends Component {
         let {currentUser} = this.props.state
         let lessonId = this.props.match.params.id;
         let {currentLesson} = this.props.state
+        let {contents}  = currentLesson;
         return(
             <div id="lesson-display-box">
                 <h2>{this.props.state.currentLesson.title}</h2>
@@ -105,26 +96,23 @@ class LessonContainer extends Component {
     
                 <Query query={GET_LESSON_CONTENTS} variables={{id: this.lessonID}} fetchPolicy="network-only">
                 {
-                    (returnedData) => {
-                        let {data, refetch, loading} = returnedData
+                    ({data,loading}) => {
                         if(loading) return <h4>loading...</h4>
-                        let contents = currentLesson.contents;
                         // debugger
                         // bug with refetch: 
                         // triggered if contentPreview updated too often.
                         // therefore, now only triggers if content preview does not exist
                         // e.g. the user submited the content, therefore clearing the preview
                         // debugger
-                        if(this.state.refetch /* !contentPreview && currentUser.signedIn && !data.lesson */){
-                            refetch();
-                            this.clearRefetch();
-                            console.log("REFETCH CALLED")
-                        }
+
+                        // if(this.state.refetch /* !contentPreview && currentUser.signedIn && !data.lesson */){
+                        //     refetch();
+                        //     this.clearRefetch();
+                        //     console.log("REFETCH CALLED")
+                        // }
                         
                         // if the state does not yet have the contents in it, then set the contents of the current lesson
-                        !currentLesson.contents 
-                        &&
-                        this.setCurrentLessonContents(data.lesson.contents)
+                        !contents && this.setCurrentLessonContents(data.lesson.contents)
                         // count how many interactive assignments are on the page, and send that number to the state
                         contents && this.countInteractiveAssignments(contents);
                                                 
@@ -141,7 +129,6 @@ class LessonContainer extends Component {
                                         lesson={this.lesson} 
                                         state={this.props.state} 
                                         stateMethods={this.props.stateMethods} 
-                                        scheduleRefetch={this.scheduleRefetch}
                                     />
                                 }
                                 {
@@ -155,7 +142,6 @@ class LessonContainer extends Component {
                                         stateMethods={this.props.stateMethods} 
                                         setContentPreview={this.setContentPreview}
                                         clearContentPreview={this.clearContentPreview} 
-                                        scheduleRefetch={this.scheduleRefetch} 
                                     />
                                 }
                                 {

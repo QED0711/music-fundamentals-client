@@ -5,41 +5,8 @@ import parseOptionsString from '../../js/parseOptionsString';
 class ContentNFInteractive extends Component{
     constructor(props){
         super(props);
-        // const {content, stateMethods, options} = props
-        // this.content = content
-        
-        // if(!this.content.id) this.content.id = "PREVIEW"
-
-        // this.contentOptions = parseOptionsString(content.data[content.data.length - 1])
-        // this.NFClient = stateMethods.NFClient;
-
-        // this.options = options;
-
-        // this.options.viewParams = {}
-
-        // this.options.exercise = {
-        //     viewParams: {
-        //         scale: 1,
-        //         role: "template",
-        //         displayMode: "paginated"
-        //     }
-        // }
-        
-        // this.options.answer = {
-        //     height: 1,
-        //     width: 1,
-        //     viewParams: {
-        //         scale: 0.1,
-        //         role: "reader",
-        //         displayMode: "paginated",
-        //     }
-        // }
-
-        // this.exerciseScoreCode = this.parseNFUrl(content.data[0])
-        // this.answerScoreCode = this.parseNFUrl(content.data[1])
 
         this.state = {answer: null};
-
         this.setAnswer = this.setAnswer.bind(this);
     }
 

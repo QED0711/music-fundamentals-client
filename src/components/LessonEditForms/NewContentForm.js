@@ -72,7 +72,6 @@ class NewContentForm extends Component {
     }
 
     render(){
-        let {scheduleRefetch} = this.props
         return(
             <Mutation mutation={CREATE_NEW_CONTENT}>
                 {
@@ -85,7 +84,6 @@ class NewContentForm extends Component {
                             <form id="new-content-form" onSubmit={ async(e) => {
                                     e.preventDefault();    
                                     this.clearContentPreview();
-                                    // scheduleRefetch()
                                     const contentInfo = this.getContentInfo();
                                     this.clearFormData()
                                     let {data} = await createContent({variables: contentInfo});

@@ -106,6 +106,7 @@ const REORDER_CONTENTS = gql`
     mutation reorderContents($lessonId: ID!, $id: ID!, $position: Int!){
         reorderContents(lessonId: $lessonId, id: $id, position: $position){
             id
+            type
             data
             position
         }
