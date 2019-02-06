@@ -7,7 +7,7 @@ import {Query} from 'react-apollo';
 import LessonCard from '../LessonCard';
 import { GET_LESSON } from '../../queries/queries';
 
-const VarifiedTokenDisplay = ({decrypted, stateMethods}) => {
+const VerifiedTokenDisplay = ({decrypted, stateMethods}) => {
     const tokenInfo = parseOptionsString(decrypted);
     return(
         <Query query={GET_LESSON} variables={{id: tokenInfo.lessonId}}>
@@ -17,8 +17,8 @@ const VarifiedTokenDisplay = ({decrypted, stateMethods}) => {
                         console.log(data)
                     }
                     return(
-                        <div id="varified-toke-display">
-                            <h2>Varified:</h2>
+                        <div id="verified-toke-display">
+                            <h2>Verified:</h2>
                             <h3>Student: {tokenInfo.name}</h3>
                             {
                                 data.lesson ?
@@ -38,5 +38,5 @@ const VarifiedTokenDisplay = ({decrypted, stateMethods}) => {
 
 }
 
-export default VarifiedTokenDisplay
+export default VerifiedTokenDisplay
 

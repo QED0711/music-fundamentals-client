@@ -236,7 +236,7 @@ class App extends Component {
           />
             
             {/* TOKEN ROUTE */}
-          <Route path="/token-varification" exact
+          <Route path="/token-verification" exact
             render={props => <TokenChecker  {...props} state={this.state} stateMethods={this.stateMethods}/>}
           />
 

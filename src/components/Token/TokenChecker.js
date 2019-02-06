@@ -5,7 +5,7 @@ import {DECRYPT_TOKEN} from '../../queries/mutations';
 
 import {Redirect} from 'react-router-dom';
 
-import VarifiedTokenDisplay from './VarifiedTokenDisplay'
+import VerifiedTokenDisplay from './VerifiedTokenDisplay'
 
 const TokenChecker = ({stateMethods, state}) => {
 
@@ -36,13 +36,13 @@ const TokenChecker = ({stateMethods, state}) => {
 
                                 <br/>
 
-                                <input type="submit" value="Varify Token" />
+                                <input type="submit" value="Verify Token" />
                             </form>
 
                             {
                                 data
                                 &&
-                                <VarifiedTokenDisplay decrypted={data.decryptToken.decrypted} stateMethods={stateMethods} /> 
+                                <VerifiedTokenDisplay decrypted={data.decryptToken.decrypted} stateMethods={stateMethods} /> 
                             }
                             {
                                 (submitted && !data)
