@@ -181,7 +181,7 @@ class ContentNFInteractive extends Component{
                     })
                 } else {
                     // if detailed grading method, load score data as musicXML (checks for perfect match)
-                    answer.getMusicXML().done(data => {
+                    answer.getNoteflightXML().done(data => {
                         let answerData = this.parseXML(data, parser)
                         this.setAnswer(answerData)
                         checkWorkButton.disabled = false;
@@ -200,7 +200,7 @@ class ContentNFInteractive extends Component{
                     this.checkJSON(data, exercise)
                 })
             } else {
-                exercise.getMusicXML().done(data => {
+                exercise.getNoteflightXML().done(data => {
                     let exerciseXML = this.parseXML(data, parser);
                     let answerData = this.state.answerData
                     // console.log({answerData, exerciseXML})
